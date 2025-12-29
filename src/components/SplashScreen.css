@@ -1,0 +1,76 @@
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* Left & Right Containers */
+.logo-half {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Head Images */
+.logo-image {
+  width: 280px;
+  height: 280px;
+  object-fit: contain;
+  background: transparent !important;
+  mix-blend-mode: normal;
+  /* filter: drop-shadow(0 0 24px rgba(32, 178, 170, 0.35)); */
+}
+
+/* Final Logo */
+.logo-formation {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.full-logo-image {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  margin-bottom: 24px;
+  background: transparent;
+  filter: drop-shadow(0 0 36px rgba(32, 178, 170, 0.45));
+}
+
+/* Text */
+.protege-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--protege-teal);
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(32, 178, 170, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .logo-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .full-logo-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .protege-text {
+    font-size: 2rem;
+  }
+}
