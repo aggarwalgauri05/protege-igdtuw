@@ -1,0 +1,32 @@
+.cursor-glitter {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+
+  background: radial-gradient(
+    circle,
+    #9ffff3 0%,
+    #20b2aa 45%,
+    transparent 75%
+  );
+
+  filter: drop-shadow(0 0 6px #20b2aa)
+          drop-shadow(0 0 10px rgba(32, 178, 170, 0.9));
+
+  animation: glitterBurst 0.6s ease-out forwards;
+}
+
+@keyframes glitterBurst {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
