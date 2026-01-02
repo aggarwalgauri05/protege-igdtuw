@@ -108,16 +108,14 @@ const AboutProtege = () => {
           <span className="timeline-base"></span>
 
           {roadmap.map((step, i) => (
-            <div 
-              className="roadmap-step" 
-              key={i}
-              style={{ transitionDelay: `${i * 0.15}s` }}
-            >
+            <div className="roadmap-step" key={i}>
               <span className="timeline-dot"></span>
-              <div className="roadmap-icon">{step.icon}</div>
-              <h4>{step.title}</h4>
-              <p>{step.text}</p>
-              <p className="roadmap-description">{step.description}</p>
+
+              <div className="roadmap-content">
+                <div className="roadmap-icon">{step.icon}</div>
+                <h4>{step.title}</h4>
+                <p>{step.text}</p>
+              </div>
             </div>
           ))}
         </div>
