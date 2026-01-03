@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X, Check, ChevronRight, ChevronLeft, Sparkles, Code, Target, Award, Rocket, Book, Globe, Lightbulb, Edit3 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Check, ChevronRight, ChevronLeft, Target, Award, Rocket, Lightbulb } from 'lucide-react';
 
 const FindMyMentorForm = ({ onClose }) => {
   const [currentSection, setCurrentSection] = useState(1);
@@ -14,9 +14,10 @@ const FindMyMentorForm = ({ onClose }) => {
     linkedin: '',
     // Section 2
     dsaLevel: '',
-    problemsSolved: 0,
-    platform: 'leetcode',
-    username: '',
+    programmingLanguage: '',
+    problemsSolved: '',
+    platform: [],
+    otherPlatform: '',
     // Section 3
     goals: [],
     otherGoal: '',
@@ -35,16 +36,13 @@ const FindMyMentorForm = ({ onClose }) => {
   const [fieldsFocused, setFieldsFocused] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [sliderValue, setSliderValue] = useState(0);
   const [floatingPromptIndex, setFloatingPromptIndex] = useState(0);
 
   const problemRanges = [
     { label: '0-50', value: '0-50' },
-    { label: '50-100', value: '50-100' },
-    { label: '100-200', value: '100-200' },
-    { label: '200-300', value: '200-300' },
-    { label: '300-500', value: '300-500' },
-    { label: '500+', value: '500+' }
+    { label: '50-150', value: '50-150' },
+    { label: '150-300', value: '150-300' },
+    { label: '300+', value: '300+' }
   ];
 
   const floatingPrompts = [
@@ -63,11 +61,11 @@ const FindMyMentorForm = ({ onClose }) => {
   const branches = [
     { icon: '💻', label: 'Computer Science', value: 'CSE' },
     { icon: '🤖', label: 'Computer Science with AI', value: 'CSE-AI' },
-    { icon: '📡', label: 'Electronics', value: 'ECE' },
-    { icon: '⚡', label: 'Electronics with AI', value: 'ECE-AI' },
+    { icon: '📡', label: 'Electronics and Communication', value: 'ECE' },
+    { icon: '⚡', label: 'Electronics and Communication with AI', value: 'ECE-AI' },
     { icon: '🧠', label: 'AI & ML', value: 'AI-ML' },
-    { icon: '⚙️', label: 'Mechanical Engineering', value: 'ME' },
-    { icon: '💡', label: 'Information Technology', value: 'IT' }
+    { icon: '⚙️', label: 'Mechanical and Automation Engineering', value: 'MAE' },
+    { icon: '👾', label: 'Mathematics and Computing', value: 'MC' }
   ];
 
   const years = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
@@ -93,23 +91,25 @@ const FindMyMentorForm = ({ onClose }) => {
     }
   ];
 
+  const programmingLanguages = [
+    { label: 'Python', value: 'python', icon: '🐍' },
+    { label: 'Java', value: 'java', icon: '☕' },
+    { label: 'C++', value: 'cpp', icon: '⚡' }
+  ];
+
   const goals = [
-    { icon: Target, label: 'Land an internship', value: 'internship' },
-    { icon: Edit3, label: 'Build resume/portfolio', value: 'resume' },
-    { icon: Award, label: 'Win hackathons', value: 'hackathons' },
-    { icon: Rocket, label: 'Launch a product/startup', value: 'startup' },
-    { icon: Book, label: 'Master a specific tech', value: 'master-tech' },
-    { icon: Globe, label: 'Contribute to open source', value: 'open-source' },
-    { icon: Lightbulb, label: 'Learn system design', value: 'system-design' },
-    { icon: Sparkles, label: 'Other (specify)', value: 'other' }
+    { icon: Target, label: 'Crack Internship Coding Rounds', value: 'internship-rounds' },
+    { icon: Award, label: 'Crack Placement Coding Rounds', value: 'placement-rounds' },
+    { icon: Lightbulb, label: 'Improve Problem-Solving Fundamentals', value: 'fundamentals' },
+    { icon: Rocket, label: 'Competitive Programming', value: 'competitive' }
   ];
 
   const platforms = [
     { label: 'LeetCode', value: 'leetcode' },
-    { label: 'CodeForces', value: 'codeforces' },
-    { label: 'HackerRank', value: 'hackerrank' },
-    { label: 'GeeksforGeeks', value: 'gfg' },
+    { label: 'Codeforces', value: 'codeforces' },
     { label: 'CodeChef', value: 'codechef' },
+    { label: 'GFG', value: 'gfg' },
+    { label: 'None yet', value: 'none' },
     { label: 'Other', value: 'other' }
   ];
 
@@ -132,6 +132,11 @@ const FindMyMentorForm = ({ onClose }) => {
 
     if (section === 2) {
       if (!formData.dsaLevel) newErrors.dsaLevel = 'Please select your DSA level';
+      if (!formData.programmingLanguage) newErrors.programmingLanguage = 'Please select a programming language';
+      if (formData.platform.length === 0) newErrors.platform = 'Select at least one platform';
+      if (formData.platform.includes('other') && !formData.otherPlatform.trim()) {
+        newErrors.otherPlatform = 'Please specify the platform';
+      }
     }
 
     if (section === 3) {
@@ -154,13 +159,13 @@ const FindMyMentorForm = ({ onClose }) => {
   const handleNext = () => {
     if (validateSection(currentSection)) {
       setCurrentSection(prev => prev + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   };
 
   const handleBack = () => {
     setCurrentSection(prev => prev - 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleSubmit = async () => {
@@ -191,6 +196,15 @@ const FindMyMentorForm = ({ onClose }) => {
     });
   };
 
+  const handlePlatformToggle = (platformValue) => {
+    setFormData(prev => {
+      const platform = prev.platform.includes(platformValue)
+        ? prev.platform.filter(p => p !== platformValue)
+        : [...prev.platform, platformValue];
+      return { ...prev, platform };
+    });
+  };
+
   const handleCommitmentToggle = (key) => {
     setFormData(prev => ({
       ...prev,
@@ -199,21 +213,6 @@ const FindMyMentorForm = ({ onClose }) => {
         [key]: !prev.commitments[key]
       }
     }));
-  };
-
-  const getSliderLabel = (value) => {
-    if (value <= 10) return Math.floor((value / 10) * 50).toString();
-    if (value <= 30) return Math.floor(50 + ((value - 10) / 20) * 100).toString();
-    if (value <= 60) return Math.floor(150 + ((value - 30) / 30) * 150).toString();
-    if (value <= 90) return Math.floor(300 + ((value - 60) / 30) * 200).toString();
-    return '500+';
-  };
-
-  const getSliderColor = (value) => {
-    if (value < 25) return '#ef4444';
-    if (value < 50) return '#f59e0b';
-    if (value < 75) return '#eab308';
-    return '#22c55e';
   };
 
   if (submitSuccess) {
@@ -577,6 +576,22 @@ const FindMyMentorForm = ({ onClose }) => {
                 </div>
 
                 <div className="form-field-group">
+                  <label className="field-label">Preferred Programming Language *</label>
+                  <div className="platform-selector">
+                    {programmingLanguages.map((lang) => (
+                      <button
+                        key={lang.value}
+                        className={`platform-btn ${formData.programmingLanguage === lang.value ? 'active' : ''}`}
+                        onClick={() => handleInputChange('programmingLanguage', lang.value)}
+                      >
+                        <span>{lang.icon}</span> {lang.label}
+                      </button>
+                    ))}
+                  </div>
+                  {errors.programmingLanguage && <span className="error-message">{errors.programmingLanguage}</span>}
+                </div>
+
+                <div className="form-field-group">
                   <label className="field-label">Total Problems Solved</label>
                   <div className="problem-range-cards">
                     {problemRanges.map((range) => (
@@ -593,31 +608,40 @@ const FindMyMentorForm = ({ onClose }) => {
                 </div>
 
                 <div className="form-field-group">
-                  <label className="field-label">Coding Platform (Optional)</label>
+                  <label className="field-label">Platforms Used (select all that apply) *</label>
                   <div className="platform-selector">
                     {platforms.map((platform) => (
                       <button
                         key={platform.value}
-                        className={`platform-btn ${formData.platform === platform.value ? 'active' : ''}`}
-                        onClick={() => handleInputChange('platform', platform.value)}
+                        className={`platform-btn ${formData.platform.includes(platform.value) ? 'active' : ''}`}
+                        onClick={() => handlePlatformToggle(platform.value)}
                       >
                         {platform.label}
+                        {formData.platform.includes(platform.value) && <Check size={16} style={{ marginLeft: '0.25rem' }} />}
                       </button>
                     ))}
                   </div>
-                  <div className="form-field" style={{ marginTop: '1rem' }}>
-                    <input
-                      type="url"
-                      value={formData.username}
-                      onChange={(e) => handleInputChange('username', e.target.value)}
-                      onFocus={() => setFieldsFocused(prev => ({ ...prev, username: true }))}
-                    />
-                    <label className={formData.username || fieldsFocused.username ? 'active' : ''}>
-                      Coding Profile Link
-                    </label>
-                    <span className="optional-badge">Optional</span>
-                  </div>
-                  <p className="helper-text">We'll verify your profile for better matching</p>
+                  {formData.platform.length > 0 && (
+                    <div className="goals-count">{formData.platform.length} platform{formData.platform.length > 1 ? 's' : ''} selected</div>
+                  )}
+                  {errors.platform && <span className="error-message">{errors.platform}</span>}
+                  
+                  {formData.platform.includes('other') && (
+                    <div className="form-field" style={{ marginTop: '1rem' }}>
+                      <input
+                        type="text"
+                        value={formData.otherPlatform}
+                        onChange={(e) => handleInputChange('otherPlatform', e.target.value)}
+                        onFocus={() => setFieldsFocused(prev => ({ ...prev, otherPlatform: true }))}
+                        placeholder="Specify the platform..."
+                      />
+                      <label className={formData.otherPlatform || fieldsFocused.otherPlatform ? 'active' : ''}>
+                        Other Platform Name
+                      </label>
+                      {errors.otherPlatform && <span className="error-message">{errors.otherPlatform}</span>}
+                    </div>
+                  )}
+                  <p className="helper-text">Select the platforms you actively use for practice</p>
                 </div>
               </div>
             </div>
@@ -818,7 +842,6 @@ const FindMyMentorForm = ({ onClose }) => {
           padding: 2rem 1rem;
         }
 
-        /* Animated Background */
         .blob-container {
           position: fixed;
           width: 100%;
@@ -881,7 +904,6 @@ const FindMyMentorForm = ({ onClose }) => {
           }
         }
 
-        /* Floating Particles */
         .particles {
           position: fixed;
           inset: 0;
@@ -915,7 +937,6 @@ const FindMyMentorForm = ({ onClose }) => {
           }
         }
 
-        /* Progress Bar Top */
         .progress-bar-top {
           position: fixed;
           top: 0;
@@ -933,7 +954,6 @@ const FindMyMentorForm = ({ onClose }) => {
           box-shadow: 0 0 20px rgba(32, 178, 170, 0.6);
         }
 
-        /* Progress Indicators */
         .progress-indicators {
           position: fixed;
           top: 2rem;
@@ -998,7 +1018,6 @@ const FindMyMentorForm = ({ onClose }) => {
           background: rgba(255, 255, 255, 0.1);
         }
 
-        /* Close Button */
         .close-btn {
           position: fixed;
           top: 2rem;
@@ -1024,7 +1043,6 @@ const FindMyMentorForm = ({ onClose }) => {
           transform: rotate(90deg);
         }
 
-        /* Form Container */
         .form-container {
           width: 100%;
           max-width: 900px;
@@ -1042,7 +1060,6 @@ const FindMyMentorForm = ({ onClose }) => {
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* Section Styles */
         .section {
           animation: sectionFadeIn 0.6s ease;
         }
@@ -1081,7 +1098,6 @@ const FindMyMentorForm = ({ onClose }) => {
           gap: 2rem;
         }
 
-        /* Form Field Styles */
         .form-field {
           position: relative;
         }
@@ -1184,7 +1200,6 @@ const FindMyMentorForm = ({ onClose }) => {
           border-radius: 12px;
         }
 
-        /* Branch Grid */
         .form-field-group {
           display: flex;
           flex-direction: column;
@@ -1237,7 +1252,6 @@ const FindMyMentorForm = ({ onClose }) => {
           font-size: 0.9rem;
         }
 
-        /* Year Cards */
         .year-cards {
           display: flex;
           gap: 1rem;
@@ -1278,7 +1292,6 @@ const FindMyMentorForm = ({ onClose }) => {
           right: 0.5rem;
         }
 
-        /* DSA Level Cards */
         .dsa-level-cards {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1365,7 +1378,6 @@ const FindMyMentorForm = ({ onClose }) => {
           100% { transform: scale(1) rotate(360deg); }
         }
 
-        /* Problem Range Cards */
         .problem-range-cards {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -1405,63 +1417,6 @@ const FindMyMentorForm = ({ onClose }) => {
           right: 0.5rem;
         }
 
-        /* Slider */
-        .slider-container {
-          padding: 2rem 0;
-        }
-
-        .slider-value {
-          text-align: center;
-          font-size: 2rem;
-          font-weight: 700;
-          margin-bottom: 2rem;
-          transition: color 0.3s ease;
-        }
-
-        .slider {
-          -webkit-appearance: none;
-          width: 100%;
-          height: 8px;
-          border-radius: 10px;
-          outline: none;
-          transition: background 0.3s ease;
-        }
-
-        .slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background: #20B2AA;
-          cursor: pointer;
-          box-shadow: 0 0 20px rgba(32, 178, 170, 0.6);
-          transition: all 0.3s ease;
-        }
-
-        .slider::-webkit-slider-thumb:hover {
-          transform: scale(1.3);
-        }
-
-        .slider::-moz-range-thumb {
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background: #20B2AA;
-          cursor: pointer;
-          border: none;
-          box-shadow: 0 0 20px rgba(32, 178, 170, 0.6);
-        }
-
-        .slider-labels {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 1rem;
-          color: rgba(255, 255, 255, 0.4);
-          font-size: 0.85rem;
-        }
-
-        /* Platform Selector */
         .platform-selector {
           display: flex;
           gap: 1rem;
@@ -1477,6 +1432,9 @@ const FindMyMentorForm = ({ onClose }) => {
           cursor: pointer;
           transition: all 0.3s ease;
           font-size: 0.95rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
         }
 
         .platform-btn:hover {
@@ -1496,7 +1454,6 @@ const FindMyMentorForm = ({ onClose }) => {
           margin-top: 0.5rem;
         }
 
-        /* Goals Grid */
         .goals-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1563,7 +1520,6 @@ const FindMyMentorForm = ({ onClose }) => {
           font-weight: 500;
         }
 
-        /* Floating Prompt */
         .floating-prompt {
           text-align: center;
           color: rgba(255, 255, 255, 0.4);
@@ -1577,7 +1533,6 @@ const FindMyMentorForm = ({ onClose }) => {
           50% { opacity: 0.7; transform: translateY(-5px); }
         }
 
-        /* Mentor Reason Textarea */
         .mentor-reason-textarea {
           width: 100%;
           padding: 1.5rem;
@@ -1610,7 +1565,6 @@ const FindMyMentorForm = ({ onClose }) => {
           font-weight: 500;
         }
 
-        /* Commitment Contract */
         .commitment-contract {
           background: rgba(255, 255, 255, 0.02);
           border: 2px solid rgba(32, 178, 170, 0.2);
@@ -1720,7 +1674,6 @@ const FindMyMentorForm = ({ onClose }) => {
           gap: 0.5rem;
         }
 
-        /* Navigation */
         .form-navigation {
           display: flex;
           align-items: center;
@@ -1786,7 +1739,6 @@ const FindMyMentorForm = ({ onClose }) => {
           font-size: 0.9rem;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
           .progress-indicators {
             padding: 0.75rem 1.5rem;
