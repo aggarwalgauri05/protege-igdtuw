@@ -7,7 +7,7 @@ import SplashScreen from "./components/SplashScreen";
 import Footer from "./components/Footer";
 import NeonCursor from "./components/NeonCursor";
 import GlitterCursor from "./components/GlitterCursor";
-
+import Mentorship from "./pages/mentorship";
 import "./styles/theme.css";
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/team" element={<Team />} />
+          <Route path="/mentorship" element={<Mentorship />} />
         </Routes>
 
         <Footer />
