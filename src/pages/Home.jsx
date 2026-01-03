@@ -5,6 +5,7 @@ import './Home.css';
 import heartIcon from '../assets/3dicons-notify-heart-front-color.png';
 import girlIcon from '../assets/3dicons-girl-front-color.png';
 import targetIcon from '../assets/3dicons-target-front-color.png';
+import teamVideo from '../assets/team_video.mp4';
 
 const Home = () => {
 
@@ -22,7 +23,7 @@ const Home = () => {
         const value = Math.floor(progress * target);
 
         if (target >= 1000) {
-          counter.innerText = Math.floor(value / 1000) + 'k' + (hasPlus ? '+' : '');
+          counter.innerText = value.toLocaleString() + (hasPlus ? '+' : '');
         } else {
           counter.innerText = value + (hasPlus ? '+' : '');
         }
@@ -62,14 +63,24 @@ const Home = () => {
 
       {/* Hero Section */}
       <section className="hero-section">
+        <video 
+          className="hero-background-video" 
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+        >
+          <source src={teamVideo} type="video/mp4" />
+        </video>
+        <div className="hero-video-overlay"></div>
+        
         <div className="hero-content">
           <h1 className="hero-title">
             Empowering Women to <span className="highlight">Lead the Future</span>
           </h1>
 
           <p className="hero-subtitle">
-            Protégé  is a mentorship-driven community nurturing confidence,
-            leadership, and excellence among women in tech.
+            The Mentorship Society of IGDTUW
           </p>
 
           <div className="hero-buttons">
@@ -77,8 +88,6 @@ const Home = () => {
             <button className="btn btn-secondary">Learn More</button>
           </div>
         </div>
-
-        <div className="hero-bg-effect"></div>
       </section>
 
       {/* Stats Section */}

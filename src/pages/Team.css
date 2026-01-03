@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+
+/* --- LAYOUT CONTAINER --- */
+.team-container {
+  display: flex;
+  min-height: 100vh;
+  /* Removed padding-top so left panel hits the top edge */
+  background-color: var(--bg-black);
+  overflow: hidden; 
+}
+
+/* --- LEFT PANEL (FIXED FULL HEIGHT) --- */
+.left-panel {
+  position: fixed; /* Fixes it to the viewport */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 30%; /* Slightly narrower to give more room to right */
+  height: 100vh;
+  background-color: var(--protege-teal);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 9999; /* High z-index to cover the Header Logo */
+  box-shadow: 5px 0 25px rgba(0,0,0,0.3);
+}
+
+/* Spotlight Profile (Left Side) */
+.left-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px; /* Tighter gap */
+  align-items: center;
+  width: 100%;
+}
+
+.profile-spotlight {
+  text-align: center;
+  color: white;
+}
+
+.spotlight-img {
+  width: 150px; /* Smaller size to fit screen without scroll */
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  margin: 0 auto 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.spotlight-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spotlight-name {
+  font-size: 1.5rem; /* Adjusted for better fit */
+  font-weight: 800;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
+.spotlight-role {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* --- RIGHT PANEL (Scrollable) --- */
+.right-panel {
+  margin-left: 30%; /* Pushes content right to not hide behind fixed sidebar */
+  width: 70%;
+  background-color: var(--bg-black);
+  padding: 100px 50px 50px; /* Top padding to clear Header Nav on the right side */
+  overflow-y: auto;
+  height: 100vh;
+  
+  /* HIDE SCROLLBAR */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide Scrollbar for Chrome, Safari and Opera */
+.right-panel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Right Header & Navigation */
+.right-header {
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 20px;
+}
+
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.highlight {
+  color: var(--protege-teal);
+}
+
+/* Nav Tabs */
+.nav-tabs {
+  display: flex;
+  gap: 25px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbar on tabs too */
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+
+.tab-item {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 10px 0;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+
+.tab-item:hover { color: white; }
+.tab-item.active { color: var(--protege-teal); }
+
+.active-line {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--protege-teal);
+  border-radius: 2px 2px 0 0;
+}
+
+/* --- GRID AREA --- */
+.grid-area {
+  padding-bottom: 50px;
+}
+
+.group-section {
+  margin-bottom: 50px;
+}
+
+.group-title {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  border-left: 3px solid var(--protege-teal);
+  padding-left: 15px;
+}
+
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+/* --- RIGHT SIDE CARD --- */
+.team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.card-img-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: 3px solid rgba(32, 178, 170, 0.3);
+  transition: all 0.3s ease;
+}
+
+.team-card:hover .card-img-circle {
+  border-color: var(--protege-teal);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(32, 178, 170, 0.2);
+}
+
+.card-img-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-info h4 {
+  color: white;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.card-info p {
+  color: var(--protege-teal);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .team-container {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .left-panel {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 80px 20px 40px; /* Pad top so Header doesn't cover content */
+    z-index: 1; /* Reset Z-index so header can be used */
+  }
+
+  .right-panel {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    padding: 40px 20px;
+  }
+}

@@ -1,0 +1,221 @@
+:root {
+  --bg: #050808;
+  --card: #0b1111;
+  --teal: #19c7b8;
+  --text: #e7eeee;
+  --muted: #8a9a9a;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* PAGE */
+.events-page {
+  width: 100%;
+}
+
+/* HERO */
+.events-hero {
+  padding: 120px 8% 60px;
+  text-align: center;
+}
+
+.events-hero h1 {
+  font-size: 72px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.events-hero h1 span {
+  color: var(--teal);
+}
+
+.events-hero p {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.events-hero .highlight {
+  color: var(--teal);
+}
+
+/* CONTENT */
+.events-content {
+  display: flex;
+  padding: 80px 8%;
+  gap: 80px;
+}
+
+/* FILTER */
+.year-filter {
+  min-width: 120px;
+}
+
+.filter-title {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.year-filter button {
+  display: block;
+  background: none;
+  border: none;
+  color: #5f6f6f;
+  font-size: 24px;
+  margin: 14px 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.year-filter button.active {
+  color: var(--teal);
+}
+
+/* MAIN */
+.events-main {
+  flex: 1;
+}
+
+.section-label {
+  color: var(--teal);
+  letter-spacing: 2px;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.events-main h2 {
+  font-size: 48px;
+  margin-bottom: 40px;
+}
+
+.events-main h2 span {
+  color: var(--teal);
+}
+
+/* GRID */
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+/* EVENT CARD */
+.event-card {
+  position: relative;
+  height: 320px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(25, 199, 184, 0.15),
+    0 20px 50px rgba(0, 0, 0, 0.6);
+  transition: box-shadow 0.4s ease;
+}
+
+.event-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(25, 199, 184, 0.4),
+    0 30px 80px rgba(0, 0, 0, 0.8);
+}
+
+/* Gradient overlay */
+.event-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(5, 8, 8, 0.95) 20%,
+    rgba(5, 8, 8, 0.7) 55%,
+    rgba(5, 8, 8, 0.25) 100%
+  );
+}
+
+/* Pill */
+.event-pill {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--teal);
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 2;
+}
+
+/* Content */
+.event-content {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  z-index: 2;
+}
+
+.event-date {
+  color: var(--teal);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.event-content h3 {
+  font-size: 26px;
+  margin: 0 0 12px;
+}
+
+.event-desc {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-modal {
+  background: #0b1111;
+  border-radius: 20px;
+  width: min(600px, 90%);
+  padding: 32px;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
