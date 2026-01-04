@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 3rem;
+  padding: 1.5rem 1rem;
   background: var(--glass-bg);
   backdrop-filter: blur(15px);
   border-bottom: 1px solid rgba(32, 178, 170, 0.1);
@@ -15,18 +15,51 @@
 }
 
 .logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: var(--protege-teal);
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
   transition: all 0.3s ease;
-  cursor: pointer;
 }
 
-.logo:hover {
+.logo-img {
+  height: 45px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #20B2AA;
+  font-family: 'Georgia', serif;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.logo-text::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #20B2AA;
+  transition: width 0.3s ease;
+}
+
+.logo:hover .logo-text::after {
+  width: 100%;
+}
+
+.logo:hover .logo-text {
+  color: #16a89e;
+}
+
+.logo:hover .logo-img {
   transform: scale(1.05);
-  text-shadow: 0 0 20px rgba(32, 178, 170, 0.5);
 }
 
 .nav {

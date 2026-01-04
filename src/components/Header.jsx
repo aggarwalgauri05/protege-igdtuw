@@ -1,11 +1,18 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
+import logo from '../assets/logo-full.png'; // Add this line
 
 const Header = () => {
   return (
     <header className="header">
-      <div className="logo">Protégé IGDTUW</div>
+      {/* Link the Logo to Home */}
+      <Link to="/" className="logo">
+  <img src={logo} alt="Protégé Logo" className="logo-img" />
+  <span className="logo-text">Protégé IGDTUW</span>
+</Link>
+      
       <nav className="nav">
         <Link to="/">Home</Link>
         <Link to="/team">Team</Link> 
@@ -18,5 +25,6 @@ const Header = () => {
     </header>
   );
 };
+
 
 export default Header;
