@@ -1,21 +1,19 @@
+/* src/pages/Team.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
 
-/* --- LAYOUT CONTAINER --- */
 .team-container {
   display: flex;
   min-height: 100vh;
-  /* Removed padding-top so left panel hits the top edge */
   background-color: var(--bg-black);
   overflow: hidden; 
 }
 
-/* --- LEFT PANEL (FIXED FULL HEIGHT) --- */
 .left-panel {
-  position: fixed; /* Fixes it to the viewport */
+  position: fixed; 
   top: 0;
   left: 0;
   bottom: 0;
-  width: 30%; /* Slightly narrower to give more room to right */
+  width: 30%; 
   height: 100vh;
   background-color: var(--protege-teal);
   display: flex;
@@ -23,32 +21,38 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  z-index: 9999; /* High z-index to cover the Header Logo */
+  z-index: 9999; 
   box-shadow: 5px 0 25px rgba(0,0,0,0.3);
-}
-
-/* Spotlight Profile (Left Side) */
-.left-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 50px; /* Tighter gap */
-  align-items: center;
-  width: 100%;
 }
 
 .profile-spotlight {
   text-align: center;
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  border-radius: 15px;
+  transition: background 0.3s ease;
+  cursor: default;
+  max-width: 100%;
+}
+
+.profile-spotlight:hover {
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .spotlight-img {
-  width: 150px; /* Smaller size to fit screen without scroll */
-  height: 150px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid rgba(255, 255, 255, 0.2);
-  margin: 0 auto 15px;
+  border: 4px solid #4fd1c5; 
+  margin-bottom: 15px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  background-color: rgba(0, 64, 64, 0.2);
+  transition: transform 0.4s ease, border-color 0.4s ease;
 }
 
 .spotlight-img img {
@@ -57,41 +61,133 @@
   object-fit: cover;
 }
 
+.profile-spotlight:hover .spotlight-img {
+  transform: scale(1.05);
+  border-color: white; 
+}
+
 .spotlight-name {
-  font-size: 1.5rem; /* Adjusted for better fit */
+  font-size: 2rem;
   font-weight: 800;
-  margin-bottom: 5px;
-  letter-spacing: 0.5px;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .spotlight-role {
-  font-size: 0.9rem;
+  font-size: 1rem;
   opacity: 0.9;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  margin-bottom: 5px;
 }
 
-/* --- RIGHT PANEL (Scrollable) --- */
+.spotlight-reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-10px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-spotlight:hover .spotlight-reveal {
+  max-height: 400px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.spotlight-branch {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  border: 1px solid rgba(127, 255, 212, 0.4); 
+  margin-top: 5px;
+}
+
+/* LinkedIn */
+.spotlight-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  color: white;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.linkedin-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.spotlight-social:hover {
+  transform: translateY(-3px);
+  background: white;
+  color: #0077b5;
+}
+
+/* Description */
+.spotlight-desc {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 85%;
+  margin-top: 10px;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  gap: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.dot.active {
+  background-color: white;
+  transform: scale(1.2);
+}
+
 .right-panel {
-  margin-left: 30%; /* Pushes content right to not hide behind fixed sidebar */
+  margin-left: 30%; 
   width: 70%;
   background-color: var(--bg-black);
-  padding: 100px 50px 50px; /* Top padding to clear Header Nav on the right side */
+  padding: 100px 50px 50px; 
   overflow-y: auto;
   height: 100vh;
-  
-  /* HIDE SCROLLBAR */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
-/* Hide Scrollbar for Chrome, Safari and Opera */
 .right-panel::-webkit-scrollbar {
   display: none;
 }
 
-/* Right Header & Navigation */
 .right-header {
   margin-bottom: 40px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -110,12 +206,11 @@
   color: var(--protege-teal);
 }
 
-/* Nav Tabs */
 .nav-tabs {
   display: flex;
   gap: 25px;
   overflow-x: auto;
-  scrollbar-width: none; /* Hide scrollbar on tabs too */
+  scrollbar-width: none; 
 }
 .nav-tabs::-webkit-scrollbar { display: none; }
 
@@ -146,7 +241,6 @@
   border-radius: 2px 2px 0 0;
 }
 
-/* --- GRID AREA --- */
 .grid-area {
   padding-bottom: 50px;
 }
@@ -171,7 +265,6 @@
   gap: 40px;
 }
 
-/* --- RIGHT SIDE CARD --- */
 .team-card {
   display: flex;
   flex-direction: column;
@@ -214,7 +307,6 @@
   text-transform: uppercase;
 }
 
-/* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
   .team-container {
     flex-direction: column;
@@ -225,8 +317,8 @@
     position: relative;
     width: 100%;
     height: auto;
-    padding: 80px 20px 40px; /* Pad top so Header doesn't cover content */
-    z-index: 1; /* Reset Z-index so header can be used */
+    padding: 80px 20px 40px; 
+    z-index: 1; 
   }
 
   .right-panel {
