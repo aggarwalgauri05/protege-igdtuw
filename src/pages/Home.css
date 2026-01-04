@@ -128,12 +128,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6rem;
+  gap: 4rem;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 80px 20px;
+  padding: 100px 20px;
   text-align: center;
+  position: relative;
 }
 
 .stat {
@@ -213,6 +214,17 @@
 
   .hero-buttons {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 1024px) {
+  .stats {
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  
+  .stat {
+    min-width: 200px;
   }
 }
 

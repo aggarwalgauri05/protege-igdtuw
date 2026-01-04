@@ -1,0 +1,355 @@
+:root {
+  --protege-teal: #20b2aa;
+  --protege-dark-teal: #1a9b94;
+  --protege-bg: #0b0f14;
+  --protege-card: #121822;
+}
+
+.about-protege {
+  background: var(--protege-bg);
+  padding: 8rem 2rem;
+  color: white;
+  text-align: center;
+}
+
+.about-tag {
+  color: var(--protege-teal);
+  letter-spacing: 3px;
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
+
+.about-title {
+  font-size: 3.2rem;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+}
+
+.about-subtitle {
+  max-width: 850px;
+  margin: 0 auto 4.5rem;
+  color: #bfc6d1;
+  line-height: 1.7;
+  font-size: 1.15rem;
+}
+
+/* ================= PILLARS ================= */
+.about-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  max-width: 1300px;
+  margin: 0 auto 7rem;
+}
+
+.pillar-card {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(32, 178, 170, 0.08),
+    var(--protege-card)
+  );
+  padding: 2.5rem;
+  border-radius: 18px;
+  text-align: left;
+  overflow: hidden;
+  transform: translateY(40px);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+.pillar-card.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.pillar-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.pillar-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(32, 178, 170, 0.35),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.pillar-card:hover::before {
+  opacity: 1;
+}
+
+.pillar-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.pillar-top-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--protege-teal);
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pillar-card:hover .pillar-top-line {
+  width: 100%;
+}
+
+.pillar-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(32, 178, 170, 0.18);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--protege-teal);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.pillar-card:hover .pillar-icon {
+  background: rgba(32, 178, 170, 0.25);
+  transform: scale(1.1);
+}
+
+.pillar-card h4 {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  color: white;
+}
+
+.pillar-card p {
+  color: #cdd3dd;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* ================= TIMELINE ================= */
+.about-roadmap {
+  max-width: 1300px;
+  margin: auto;
+}
+
+.about-roadmap h3 {
+  margin-bottom: 4rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.roadmap-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+  padding-top: 60px;
+}
+
+/* MAIN LINE */
+.timeline-base {
+  position: absolute;
+  top: 30px;
+  left: 5%;
+  width: 90%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.timeline-base::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--protege-teal);
+  animation: progressLine 3s ease-out forwards;
+  animation-delay: 0.5s;
+  border-radius: 2px;
+}
+
+@keyframes progressLine {
+  to {
+    width: 100%;
+  }
+}
+
+.roadmap-step {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at top,
+    rgba(32, 178, 170, 0.12),
+    rgba(18, 24, 34, 0.95)
+  );
+  border: 1px solid rgba(32, 178, 170, 0.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: translateY(40px);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+
+.roadmap-step::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1000px;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(32, 178, 170, 0.25),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+
+.roadmap-step:hover::before {
+  opacity: 1;
+}
+
+.roadmap-step.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.roadmap-step:hover {
+  transform: translateY(-8px);
+  border-color: rgba(32, 178, 170, 0.4);
+  box-shadow: 0 12px 32px rgba(32, 178, 170, 0.2);
+}
+
+.roadmap-content {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.roadmap-content p {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+
+/* DOT */
+.timeline-dot {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background: var(--protege-teal);
+  border: 3px solid var(--protege-bg);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(32, 178, 170, 0.2);
+  transition: all 0.4s ease;
+  z-index: 10;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(32, 178, 170, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(32, 178, 170, 0.4);
+  }
+}
+
+.roadmap-step:hover .timeline-dot {
+  box-shadow: 0 0 20px rgba(32, 178, 170, 1);
+  transform: translateX(-50%) scale(1.4);
+  animation: none;
+}
+
+.roadmap-icon {
+  font-size: 1.8rem;
+  color: var(--protege-teal);
+  margin-bottom: 0.8rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.roadmap-step:hover .roadmap-icon {
+  transform: scale(1.15) rotateY(360deg);
+}
+
+.roadmap-step h4 {
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+  color: white;
+}
+
+.roadmap-step p {
+  color: #cdd3dd;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.roadmap-description {
+  color: #8b94a5;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  padding: 0 0.5rem;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .roadmap-timeline {
+    grid-template-columns: 1fr;
+    padding-top: 1rem;
+  }
+
+  .timeline-base {
+    display: none;
+  }
+
+  .roadmap-step {
+    padding-top: 2rem;
+  }
+
+  .timeline-dot {
+    display: none;
+  }
+}

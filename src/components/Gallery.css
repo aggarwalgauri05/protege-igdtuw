@@ -1,0 +1,84 @@
+.gallery-section {
+  padding: 4rem 2rem;
+  background: transparent;
+}
+
+.gallery-title {
+  text-align: center;
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  margin-bottom: 3rem;
+  color: #e3e8ea; 
+}
+
+/* Masonry layout */
+.gallery-grid {
+  column-count: 4;
+  column-gap: 1.5rem;
+
+  margin-top: 0.4rem;
+}
+
+/* Image cards */
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: fadeUp 0.8s ease both;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Hover effect */
+.gallery-item:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(32, 178, 170, 0.35),   /* teal glow */
+    0 0 36px rgba(32, 178, 170, 0.15);   /* soft spread */
+}
+
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .gallery-grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    column-count: 1;
+  }
+}
