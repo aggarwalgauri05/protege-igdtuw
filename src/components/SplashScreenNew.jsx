@@ -59,7 +59,7 @@ const SplashScreen = ({ onComplete }) => {
           <h2 className="quote-text">
             Every expert was once a beginner
           </h2>
-          <div className="quote-author">— Your journey starts here</div>
+          <div className="quote-author">XSEED Your Potential</div>
         </div>
 
         {/* Progress indicator - separate from quote */}

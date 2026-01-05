@@ -74,19 +74,19 @@ const FindMyMentorForm = ({ onClose }) => {
     { 
       icon: '🌱', 
       level: 'Beginner', 
-      desc: 'Just starting with arrays & basic patterns',
+      desc: 'Just starting with arrays, strings, stacks, queues, linked-list',
       value: 'beginner'
     },
     { 
       icon: '🌿', 
       level: 'Intermediate', 
-      desc: 'Comfortable with trees, graphs, basic DP',
+      desc: 'Comfortable with Hashing, Trees, Greedy algo, BST and Heaps',
       value: 'intermediate'
     },
     { 
       icon: '🌳', 
       level: 'Advanced', 
-      desc: 'Solving hard problems, competitive programming',
+      desc: 'Solving hard problems, DP, Graph, competitive programming',
       value: 'advanced'
     }
   ];

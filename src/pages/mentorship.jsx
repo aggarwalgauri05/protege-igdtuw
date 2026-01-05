@@ -240,85 +240,7 @@ const handleSplashComplete = () => {
     }, 50);
   };
 
-  // Simplified Particle effect - REDUCED PARTICLES
-  const ParticleBackground = () => {
-    const canvasRef = useRef(null);
-
-    useEffect(() => {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const particles = [];
-      const particleCount = 20; // Reduced from 50
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.3, // Reduced speed
-          vy: (Math.random() - 0.5) * 0.3,
-          radius: Math.random() * 1.5 + 0.5 // Smaller particles
-        });
-      }
-
-      let animationId;
-      const animate = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#20B2AA';
-        ctx.strokeStyle = '#20B2AA33';
-
-        particles.forEach((p, i) => {
-          p.x += p.vx;
-          p.y += p.vy;
-
-          if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fill();
-
-          // Reduced connection calculations
-          if (i % 2 === 0) { // Only check every other particle
-            particles.forEach((p2, j) => {
-              if (i !== j && j > i) { // Avoid duplicate checks
-                const dx = p.x - p2.x;
-                const dy = p.y - p2.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < 100) { // Reduced from 120
-                  ctx.beginPath();
-                  ctx.moveTo(p.x, p.y);
-                  ctx.lineTo(p2.x, p2.y);
-                  ctx.globalAlpha = 1 - dist / 100;
-                  ctx.stroke();
-                  ctx.globalAlpha = 1;
-                }
-              }
-            });
-          }
-        });
-
-        animationId = requestAnimationFrame(animate);
-      };
-
-      animate();
-
-      const handleResize = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      };
-      window.addEventListener('resize', handleResize);
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        cancelAnimationFrame(animationId);
-      };
-    }, []);
-
-    return <canvas ref={canvasRef} className="particle-canvas" />;
-  };
+  
 
   return (
     <div className="landing-container">
@@ -342,20 +264,21 @@ const handleSplashComplete = () => {
         </svg>
         <span className="progress-text">{Math.round(scrollProgress)}%</span>
       </div>
-
-      {/* Hero Section */}
+ {/* Hero Section */}
       <section className="hero-section">
-        <ParticleBackground />
+        <video 
+          className="hero-background-video" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+        >
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
 
         <div className="hero-content" style={{
           transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)` // Reduced effect
         }}>
-          <div className="sparkle-container">
-            <Sparkles className="sparkle-icon sparkle-1" size={24} />
-            <Sparkles className="sparkle-icon sparkle-2" size={18} />
-            <Sparkles className="sparkle-icon sparkle-3" size={20} />
-          </div>
-          
           <h1 
             className="hero-title" 
             onMouseEnter={handleTitleHover}
@@ -591,10 +514,16 @@ const handleSplashComplete = () => {
           width: 60px;
           height: 60px;
           z-index: 1000;
+          background: rgba(0, 0, 0, 0.5);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .progress-ring {
           transform: rotate(-90deg);
+          position: absolute;
         }
 
         .progress-ring-circle {
@@ -603,13 +532,11 @@ const handleSplashComplete = () => {
         }
 
         .progress-text {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+          position: relative;
           font-weight: 700;
           font-size: 14px;
           color: #20B2AA;
+          z-index: 1;
         }
 
         /* Hero Section - Enhanced */
@@ -620,17 +547,18 @@ const handleSplashComplete = () => {
           justify-content: center;
           position: relative;
           overflow: hidden;
-          background: radial-gradient(circle at 50% 50%, rgba(32, 178, 170, 0.1) 0%, transparent 50%);
+          background: #000;
         }
 
-        .particle-canvas {
+        .hero-background-video {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          opacity: 0.2;
-          will-change: auto;
+          object-fit: cover;
+          opacity: 0.5;
+          z-index: 0;
         }
 
         .hero-content {
@@ -641,44 +569,6 @@ const handleSplashComplete = () => {
           will-change: transform;
         }
 
-        .sparkle-container {
-          position: absolute;
-          top: -50px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 200px;
-          height: 100px;
-        }
-
-        .sparkle-icon {
-          position: absolute;
-          color: #20B2AA;
-          opacity: 0;
-          animation: sparkle 3s infinite;
-        }
-
-        .sparkle-1 {
-          left: 20%;
-          top: 0;
-          animation-delay: 0s;
-        }
-
-        .sparkle-2 {
-          right: 20%;
-          top: 20px;
-          animation-delay: 1s;
-        }
-
-        .sparkle-3 {
-          left: 50%;
-          top: 40px;
-          animation-delay: 2s;
-        }
-
-        @keyframes sparkle {
-          0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-          50% { opacity: 0.8; transform: scale(1) rotate(180deg); }
-        }
 
         .hero-stats-below {
           display: flex;
@@ -1043,11 +933,20 @@ const handleSplashComplete = () => {
           background: rgba(255, 255, 255, 0.2);
         }
 
+        @keyframes scrollRight {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
         .team-scroll-container {
           width: 100%;
           overflow-x: auto;
           overflow-y: hidden;
-          padding: 1rem 0 4rem 0;
+          padding: 1rem 0 0 0;
           cursor: default;
           scroll-behavior: smooth;
         }
@@ -1501,15 +1400,12 @@ const handleSplashComplete = () => {
             display: none; /* Disable particles on mobile */
           }
 
-          .sparkle-container {
-            display: none;
-          }
-
           .team-title {
             padding-left: 2rem;
             font-size: 1.1rem;
             letter-spacing: 3px;
           }
+
 
           .team-title::after {
             left: calc(4rem + 160px);
