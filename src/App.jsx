@@ -6,6 +6,7 @@ import Team from "./pages/Team";
 import Blog from "./pages/Blog";
 import Events from "./pages/Events";
 import Mentorship from "./pages/mentorship";
+import FAQ from "./pages/FAQ";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -39,6 +40,7 @@ function App() {
         <Route path="/blogs" element={<Blog />} />
         <Route path="/events" element={<Events />} />
         <Route path="/mentorship" element={<Mentorship />} />
+        <Route path="/faq" element={<FAQ />} />
       </Routes>
 
       <Footer />

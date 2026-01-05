@@ -3,16 +3,13 @@
 
 .team-container {
   display: flex;
-  min-height: 100vh;
+  min-height: auto;
   background-color: var(--bg-black);
-  overflow: hidden; 
 }
 
 .left-panel {
-  position: fixed; 
+  position: sticky;
   top: 0;
-  left: 0;
-  bottom: 0;
   width: 30%; 
   height: 100vh;
   background-color: var(--protege-teal);
@@ -23,6 +20,13 @@
   padding: 20px;
   z-index: 9999; 
   box-shadow: 5px 0 25px rgba(0,0,0,0.3);
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.left-panel::-webkit-scrollbar {
+  display: none;
 }
 
 .profile-spotlight {
@@ -174,18 +178,10 @@
 }
 
 .right-panel {
-  margin-left: 30%; 
   width: 70%;
   background-color: var(--bg-black);
-  padding: 100px 50px 50px; 
-  overflow-y: auto;
-  height: 100vh;
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
-}
-
-.right-panel::-webkit-scrollbar {
-  display: none;
+  padding: 100px 50px 0;
+  min-height: 100vh;
 }
 
 .right-header {
@@ -242,11 +238,11 @@
 }
 
 .grid-area {
-  padding-bottom: 50px;
+  padding-bottom: 0;
 }
 
 .group-section {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .group-title {

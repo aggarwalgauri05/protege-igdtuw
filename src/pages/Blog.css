@@ -36,10 +36,12 @@
   object-fit: cover; /* Yeh sabse important hai! Isse image stretch nahi hogi, balki box ke hisaab se crop ho jayegi */
   object-position: center; /* Image ka center part dikhega */
   display: block;
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
 }
 
 .blog-card:hover .blog-card-image {
-  transform: scale(1.05);
+  transform: scale(1);
 }
 
 .blog-card-content {
@@ -137,31 +139,126 @@
     font-size: 0.875rem;
   }
 .blog-header {
-  max-width: 1200px;
-  margin: 0 auto;
-  /* Top padding ko 80px-100px ke beech rakhein taaki gap kam lage */
-  padding: 0.5rem 2rem 2rem 4rem;
-  /* Title aur underline ko center karne ke liye display flex use karein */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Isse left side mein rahega lekin gap control hoga */
-  /* Agar pura center chahiye toh align-items: center; kardo */
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 2rem 1rem;
 }
 
 .blog-header h1 {
-  font-size: 3.8rem; /* Pehle se bada size */
-  font-weight: 850;
-  margin-bottom: 0.2rem;
-  padding-left: 20px; /* Halka sa push karne ke liye */
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #20B2AA 0%, #ffffff 50%, #20B2AA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
 }
 
-/* Underline ko lamba aur bold karne ke liye */
-.header-underline {
-  height: 0.5rem; /* Thoda zyada thick */
-  width: 20rem;   /* Isse underline kaafi lambi ho jayegi */
-  background-color: var(--color-protege-teal);
-  border-radius: 9999px;
-  margin-left: 12px; /* Title ke sath align karne ke liye */
+.blog-header .subtitle {
+  font-size: 1.2rem;
+  color: #94a3b8;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.explore-banner {
+  position: relative;
+  margin-top: 8rem;
+  padding: 8rem 2rem;
+  overflow: hidden;
+  background: linear-gradient(
+    120deg,
+    #0a0a0a,
+    #042f2e,
+    #0a0a0a
+  );
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
+
+/* Animated background */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Glow orbs */
+.explore-banner::before,
+.explore-banner::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--teal), transparent 70%);
+  opacity: 0.25;
+  filter: blur(80px);
+  animation: floatOrb 10s infinite alternate ease-in-out;
+}
+
+.explore-banner::before {
+  top: -100px;
+  left: -100px;
+}
+
+.explore-banner::after {
+  bottom: -100px;
+  right: -100px;
+  animation-delay: 3s;
+}
+
+@keyframes floatOrb {
+  from { transform: translateY(0); }
+  to { transform: translateY(60px); }
+}
+
+/* Content */
+.explore-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.explore-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: #a1a1aa;
+  margin-bottom: 1.5rem;
+}
+
+/* 🔥 MAIN CTA TEXT */
+.explore-link {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Shimmer underline */
+.explore-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--teal), transparent);
+  transform: translateX(-50%);
+  transition: width 0.4s ease;
+}
+
+.explore-link:hover {
+  color: var(--teal);
+  transform: scale(1.04);
+}
+
+.explore-link:hover::after {
+  width: 80%;
 }
 
 
@@ -195,7 +292,7 @@
 .footer-link {
   color: white; /* Default color white */
   text-decoration: none;
-  font-size: 2.25rem;
+  font-size: 1.8rem;
   font-weight: 300;
   font-style: italic;
   transition: all 0.3s ease; /* Smooth transition for all states */
@@ -204,7 +301,7 @@
 
 @media (min-width: 768px) {
   .footer-link {
-    font-size: 3.75rem;
+    font-size: 2.8rem;
   }
 }
 
