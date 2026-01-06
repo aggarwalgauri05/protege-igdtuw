@@ -56,12 +56,12 @@ export default function Events() {
         animate="show"
       >
         <h1>
-          OUR <span>EVENTS</span>
+          OUR <span className="highlight">EVENTS</span>
         </h1>
         <p>
           Mentorships, workshops, competitions & more.
           From intense coding battles to insightful mentorship sessions, our events are built to help you grow, explore, and push your limits. 
-          <span className="highlight"> Join the experience.</span>
+          <span className="experience"> Join the experience.</span>
         </p>
       </motion.section>
 

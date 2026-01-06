@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import './Home.css';
 import ProtegeSection from '../components/ProtegeSection';
+import AboutProtege from "../components/AboutProtege.jsx";
+
+
+import { Link } from "react-router-dom";
 
 import heartIcon from '../assets/3dicons-notify-heart-front-color.png';
 import girlIcon from '../assets/3dicons-girl-front-color.png';
@@ -107,8 +111,11 @@ const Home = () => {
           </p>
 
           <div className="hero-buttons slide-up fade-in-delay-2">
-            <button className="btn btn-primary">Join Us</button>
-            <button className="btn btn-secondary">Learn More</button>
+            <Link to="/mentorship" className="btn btn-primary">Join Us</Link>
+            <button className="btn btn-secondary"
+            onClick={() => {
+              document.getElementById('about').scrollIntoView({ behavior: 'smooth', block:"start" });
+            }}>Learn More</button>
           </div>
         </div>
       </section>

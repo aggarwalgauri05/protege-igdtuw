@@ -75,7 +75,7 @@ const AboutProtege = () => {
   }, []);
 
   return (
-    <section className="about-protege">
+    <section id="about" className="about-protege">
       <p className="about-tag">ABOUT</p>
 
       <h2 className="about-title">

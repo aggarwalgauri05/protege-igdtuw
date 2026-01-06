@@ -102,8 +102,18 @@ const BlogCard = ({ blog }) => (
 export default function Blogs() {
   return (
     <div className="blog-container">
+      <motion.section
+        className="blog-hero"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <h1>
+          Decoded: <span className="highlight">Ideas & Impact</span>
+        </h1>
+      </motion.section>
+
       <header className="blog-header">
-        <h1>Decoded: Ideas & Impact</h1>
         <p className="subtitle">Blog page of Protégé</p>
       </header>
 

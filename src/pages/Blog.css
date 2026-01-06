@@ -2,11 +2,28 @@
   --color-protege-teal: #2dd4bf; /* Or your specific brand teal hex code */
   --font-sans: 'Inter', system-ui, sans-serif;
 }
+
+.blog-hero {
+  text-align: center;          
+  padding: 2rem 1.5rem 2rem;   
+  max-width: 900px;             
+  margin: 0 auto;               
+}
+
+.blog-hero h1 {
+  font-size: 3.5rem;             
+  font-weight: 800;
+  line-height: 1.1;            
+}
+
+.blog-hero .highlight {
+  color: var(--color-protege-teal);              
+}
+
 .blog-container {
   min-height: 100vh;
   background-color: black;
   color: white;
-  /* Padding ko 160px se kam karke 120px karein */
   padding-top: 90px; 
   position: relative;
   z-index: 1;

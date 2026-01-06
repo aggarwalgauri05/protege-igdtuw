@@ -38,6 +38,8 @@ body {
   color: var(--teal);
 }
 
+
+
 .events-hero p {
   margin-top: 20px;
   color: var(--muted);
@@ -48,6 +50,9 @@ body {
   color: var(--teal);
 }
 
+.experience {
+  color: var(--teal);
+}
 /* CONTENT */
 .events-content {
   display: flex;
