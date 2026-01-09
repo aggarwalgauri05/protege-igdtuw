@@ -1,0 +1,73 @@
+.coming-soon-page {
+  min-height: 100vh;
+  background-color: #000;
+  color: white;
+  font-family: Inter, system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.coming-soon-hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: radial-gradient(circle at 50% 50%, rgba(32, 178, 170, 0.1) 0%, transparent 50%);
+}
+
+.coming-soon-content {
+  text-align: center;
+  max-width: 600px;
+}
+
+.coming-soon-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+  font-family: 'Georgia', serif;
+}
+
+.coming-soon-title .highlight {
+  color: #20B2AA;
+}
+
+.coming-soon-subtitle {
+  font-size: 1.5rem;
+  color: #8a9a9a;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.coming-soon-icon {
+  font-size: 4rem;
+  margin: 2rem 0;
+  display: inline-block;
+}
+
+.coming-soon-description {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .coming-soon-title {
+    font-size: 2.5rem;
+  }
+  
+  .coming-soon-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .coming-soon-icon {
+    font-size: 3rem;
+  }
+  
+  .coming-soon-description {
+    font-size: 1rem;
+  }
+}

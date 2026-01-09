@@ -17,7 +17,7 @@ const Header = () => {
         <Link to="/">Home</Link>
         <Link to="/team">Team</Link> 
         <Link to="/events">Events</Link>
-        <Link to="/mentorship">Mentorship</Link>
+        {/* <Link to="/mentorship">Mentorship</Link> */}
            <Link to="/blogs">Blogs</Link>
         <Link to="/faq">FAQs</Link>
         

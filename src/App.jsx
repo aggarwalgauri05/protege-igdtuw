@@ -7,6 +7,7 @@ import Blog from "./pages/Blog";
 import Events from "./pages/Events";
 import Mentorship from "./pages/mentorship";
 import FAQ from "./pages/FAQ";
+import ComingSoon from "./pages/ComingSoon";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -41,6 +42,8 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/mentorship" element={<Mentorship />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/coming-soon" element={<ComingSoon />} />
+
       </Routes>
 
       <Footer />

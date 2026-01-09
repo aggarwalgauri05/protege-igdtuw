@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "../components/Header";
-import "./events.css";
+import "./Events.css";
 
 import { eventsData } from "../data/eventsData";
 

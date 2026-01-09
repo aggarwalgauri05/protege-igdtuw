@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import "./blog.css"
+import "./Blog.css"
 
 const blogs = [
   {
