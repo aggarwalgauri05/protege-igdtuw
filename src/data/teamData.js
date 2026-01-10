@@ -26,7 +26,7 @@ export const teamSections = [
         image: "/team/Archi_Goyal.jpg",
         branch: "CSE-AI",
         linkedin: "https://www.linkedin.com/in/archi-goyal-a55034286/",
-        description: "Got your back as your vice presidnt, always."
+        description: "Got your back as your vice president, always."
       },
       { 
         name: "Disha Malhotra", 

@@ -110,7 +110,6 @@
   background-size: 200% 200%;
   color: white;
   border: 2px solid #3606e4;
-  box-shadow: 0 0 30px rgba(255, 107, 107, 0.4);
   font-weight: 800;
   position: relative;
   animation: gradientShift 3s ease infinite;
@@ -137,14 +136,14 @@
 
 .category-btn.new-releases-btn:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 0 40px rgba(255, 107, 107, 0.6);
+  box-shadow: 0 0 40px rgba(13, 202, 186, 0.6);
   background: linear-gradient(135deg, #360dc9, #2c92c1, #421c93);
 }
 
 .category-btn.new-releases-btn.active {
   background: linear-gradient(135deg, #360dc9, #2c92c1);
   border-color: #3606e4;
-  box-shadow: 0 0 40px rgba(54, 13, 201, 0.6);
+  box-shadow: 0 0 40px rgba(13, 202, 186, 0.6);
   color: white;
 }
 
