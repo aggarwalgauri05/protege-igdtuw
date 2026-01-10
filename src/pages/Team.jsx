@@ -103,7 +103,7 @@ const Team = () => {
     if (leftSidebarMembers.length <= 1) return;
     const interval = setInterval(() => {
       setSpotlightIndex((prev) => (prev + 1) % leftSidebarMembers.length);
-    }, 5000); 
+    }, 3500); 
     return () => clearInterval(interval);
   }, [leftSidebarMembers.length, activeTab]);
 
