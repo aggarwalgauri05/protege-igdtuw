@@ -3,6 +3,12 @@ import "./GlitterCursor.css";
 
 const GlitterCursor = () => {
   useEffect(() => {
+    // Disable on mobile/touch devices
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+      || (navigator.maxTouchPoints && navigator.maxTouchPoints > 1);
+    
+    if (isMobile) return;
+
     let lastTime = 0;
 
     const handleMouseMove = (e) => {
