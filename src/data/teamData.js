@@ -73,7 +73,7 @@ export const teamSections = [
         role: "Media & PR Lead", 
         image: "/team/Diya_Gahlot.jpeg",
         branch: "CSE",
-        linkedin: "https://www.linkedin.com/",
+        linkedin: "https://www.linkedin.com/in/diyagahlot10/",
         description: "Curating our brand voice and expanding outreach."
       },
     ]
