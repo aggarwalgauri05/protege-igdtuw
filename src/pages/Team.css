@@ -86,6 +86,11 @@
   margin-bottom: 5px;
 }
 
+.profile-spotlight.mobile-mode {
+  cursor: default;
+  user-select: none;
+}
+
 .spotlight-reveal {
   display: flex;
   flex-direction: column;
@@ -98,7 +103,17 @@
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.profile-spotlight:hover .spotlight-reveal {
+/* Desktop hover */
+@media (hover: hover) and (pointer: fine) {
+  .profile-spotlight:hover .spotlight-reveal {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile - always show reveal section */
+.profile-spotlight.mobile-mode .spotlight-reveal {
   max-height: 400px;
   opacity: 1;
   transform: translateY(0);
@@ -330,12 +345,38 @@
     padding: 15px;
   }
 
+  .spotlight-img {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 10px;
+  }
+
+  .spotlight-name {
+    font-size: 1.4rem;
+  }
+
+  .spotlight-role {
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+  }
+
   .spotlight-reveal {
-    max-height: 350px;
+    max-height: 450px;
+  }
+
+  .spotlight-desc {
+    font-size: 0.85rem;
+    max-width: 95%;
   }
 
   .carousel-dots {
     bottom: 20px;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
   }
 
   .right-panel {
@@ -456,27 +497,6 @@
 
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
-  .profile-spotlight:hover {
-    background: none;
-  }
-
-  .profile-spotlight:hover .spotlight-img {
-    transform: none;
-  }
-
-  .profile-spotlight:hover .spotlight-reveal {
-    max-height: 0;
-    opacity: 0;
-  }
-
-  /* Make reveal accessible via tap on mobile */
-  .profile-spotlight:active .spotlight-reveal,
-  .profile-spotlight:focus-within .spotlight-reveal {
-    max-height: 400px;
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   .team-card:hover .card-img-circle {
     transform: none;
   }

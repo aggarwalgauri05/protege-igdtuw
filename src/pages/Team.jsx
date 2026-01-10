@@ -19,6 +19,22 @@ const LinkedInIcon = () => (
 const Team = () => {
   const [activeTab, setActiveTab] = useState('core');
   const [spotlightIndex, setSpotlightIndex] = useState(0);
+  const [mobileRevealOpen, setMobileRevealOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+        || (navigator.maxTouchPoints && navigator.maxTouchPoints > 1) 
+        || window.innerWidth < 768;
+      setIsMobile(mobile);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Helper to find data
   const coreSection = teamSections.find(s => s.id === 'core');
@@ -76,7 +92,12 @@ const Team = () => {
   // --- CAROUSEL LOGIC ---
   useEffect(() => {
     setSpotlightIndex(0);
+    setMobileRevealOpen(false);
   }, [activeTab]);
+
+  useEffect(() => {
+    setMobileRevealOpen(false);
+  }, [spotlightIndex]);
 
   useEffect(() => {
     if (leftSidebarMembers.length <= 1) return;
@@ -108,7 +129,7 @@ const Team = () => {
               {currentSpotlightMember ? (
                 <motion.div 
                   key={currentSpotlightMember.name} 
-                  className="profile-spotlight"
+                  className={`profile-spotlight ${isMobile ? 'mobile-mode' : ''}`}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
