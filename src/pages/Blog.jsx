@@ -1,9 +1,7 @@
 import { motion } from "framer-motion"
-<<<<<<< HEAD
-=======
 import { useState } from "react"
->>>>>>> b55efdc (Update blogs section)
 import "./blog.css"
+
 
 // IDs of new posts to apply special styling
 const newPostIds = ["new1", "new2", "new3", "new4"]
