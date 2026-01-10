@@ -48,8 +48,8 @@
 }
 
 .spotlight-img {
-  width: 180px;
-  height: 180px;
+  width: clamp(120px, 30vw, 180px);
+  height: clamp(120px, 30vw, 180px);
   border-radius: 50%;
   overflow: hidden;
   border: 4px solid #4fd1c5; 
@@ -71,14 +71,14 @@
 }
 
 .spotlight-name {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 800;
   margin: 0;
   line-height: 1.2;
 }
 
 .spotlight-role {
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
   opacity: 0.9;
   font-weight: 600;
   text-transform: uppercase;
@@ -109,7 +109,7 @@
   background-color: rgba(0, 0, 0, 0.2);
   padding: 5px 15px;
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
   font-weight: 600;
   color: white;
   border: 1px solid rgba(127, 255, 212, 0.4); 
@@ -143,7 +143,7 @@
 
 /* Description */
 .spotlight-desc {
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
   line-height: 1.5;
   max-width: 85%;
   margin-top: 10px;
@@ -192,7 +192,7 @@
 
 .section-title {
   font-family: 'Montserrat', sans-serif;
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 800;
   color: white;
   margin-bottom: 30px;
@@ -207,14 +207,18 @@
   gap: 25px;
   overflow-x: auto;
   scrollbar-width: none; 
+  -webkit-overflow-scrolling: touch;
 }
-.nav-tabs::-webkit-scrollbar { display: none; }
+
+.nav-tabs::-webkit-scrollbar { 
+  display: none; 
+}
 
 .tab-item {
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 2.5vw, 0.95rem);
   font-weight: 600;
   text-transform: uppercase;
   padding: 10px 0;
@@ -222,6 +226,7 @@
   position: relative;
   transition: color 0.3s;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tab-item:hover { color: white; }
@@ -247,7 +252,7 @@
 
 .group-title {
   color: rgba(255, 255, 255, 0.4);
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 20px;
@@ -269,8 +274,8 @@
 }
 
 .card-img-circle {
-  width: 140px;
-  height: 140px;
+  width: clamp(100px, 25vw, 140px);
+  height: clamp(100px, 25vw, 140px);
   border-radius: 50%;
   overflow: hidden;
   margin-bottom: 15px;
@@ -292,18 +297,22 @@
 
 .card-info h4 {
   color: white;
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
   margin-bottom: 5px;
+  line-height: 1.3;
 }
 
 .card-info p {
   color: var(--protege-teal);
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 2.5vw, 0.8rem);
   font-weight: 600;
   text-transform: uppercase;
 }
 
-@media (max-width: 1024px) {
+/* ================= RESPONSIVE DESIGN ================= */
+
+/* Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
   .team-container {
     flex-direction: column;
     overflow: visible;
@@ -313,14 +322,193 @@
     position: relative;
     width: 100%;
     height: auto;
-    padding: 80px 20px 40px; 
-    z-index: 1; 
+    padding: 80px 15px 40px;
+    z-index: 1;
+  }
+
+  .profile-spotlight {
+    padding: 15px;
+  }
+
+  .spotlight-reveal {
+    max-height: 350px;
+  }
+
+  .carousel-dots {
+    bottom: 20px;
   }
 
   .right-panel {
     margin-left: 0;
     width: 100%;
     height: auto;
-    padding: 40px 20px;
+    padding: 30px 15px;
+  }
+
+  .right-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+  }
+
+  .nav-tabs {
+    gap: 15px;
+    padding-bottom: 10px;
+  }
+
+  .members-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 25px;
+  }
+
+  .group-section {
+    margin-bottom: 25px;
+  }
+}
+
+/* Medium Mobile (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .team-container {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .left-panel {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 90px 20px 50px;
+    z-index: 1;
+  }
+
+  .right-panel {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    padding: 35px 20px;
+  }
+
+  .nav-tabs {
+    gap: 20px;
+  }
+
+  .members-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 30px;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .team-container {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .left-panel {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 100px 30px 60px;
+    z-index: 1;
+  }
+
+  .right-panel {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    padding: 40px 30px;
+  }
+
+  .members-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 35px;
+  }
+}
+
+/* Desktop (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .left-panel {
+    width: 35%;
+    padding: 25px 15px;
+  }
+
+  .right-panel {
+    width: 65%;
+    padding: 100px 35px 0;
+  }
+
+  .spotlight-img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Large Desktop (1280px and up) */
+@media (min-width: 1280px) {
+  .left-panel {
+    width: 30%;
+  }
+
+  .right-panel {
+    width: 70%;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .profile-spotlight:hover {
+    background: none;
+  }
+
+  .profile-spotlight:hover .spotlight-img {
+    transform: none;
+  }
+
+  .profile-spotlight:hover .spotlight-reveal {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  /* Make reveal accessible via tap on mobile */
+  .profile-spotlight:active .spotlight-reveal,
+  .profile-spotlight:focus-within .spotlight-reveal {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .team-card:hover .card-img-circle {
+    transform: none;
+  }
+
+  .team-card:active .card-img-circle {
+    transform: scale(0.95);
+  }
+
+  .spotlight-social:hover {
+    transform: none;
+  }
+
+  .spotlight-social:active {
+    transform: scale(0.9);
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+  .left-panel {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .spotlight-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .carousel-dots {
+    position: relative;
+    bottom: auto;
+    margin-top: 20px;
   }
 }

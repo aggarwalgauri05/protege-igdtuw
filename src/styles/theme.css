@@ -26,3 +26,136 @@ body {
 html, body {
   cursor: none;
 }
+/* ===============================================
+   GLOBAL LAYOUT FIX - HEADER PADDING
+   Add this to your App.css or index.css
+   =============================================== */
+
+/* Fix header overlap on all pages */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Add top padding to all main containers to account for fixed header */
+.page-transition,
+.events-page,
+.blog-container,
+.coming-soon-page,
+.team-container,
+.faq-container {
+  padding-top: 70px; /* Height of header */
+}
+
+/* Adjust for different screen sizes */
+@media (max-width: 480px) {
+  .page-transition,
+  .events-page,
+  .blog-container,
+  .coming-soon-page,
+  .team-container,
+  .faq-container {
+    padding-top: 60px; /* Smaller header on mobile */
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .page-transition,
+  .events-page,
+  .blog-container,
+  .coming-soon-page,
+  .team-container,
+  .faq-container {
+    padding-top: 65px;
+  }
+}
+
+/* Ensure hero sections have proper spacing */
+.hero-section {
+  padding-top: calc(8rem - 70px) !important;
+  min-height: calc(100vh - 70px);
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding-top: calc(6rem - 60px) !important;
+    min-height: calc(90vh - 60px);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .hero-section {
+    padding-top: calc(7rem - 65px) !important;
+  }
+}
+
+/* Fix events hero */
+.events-hero {
+  padding-top: calc(120px - 70px) !important;
+}
+
+@media (max-width: 480px) {
+  .events-hero {
+    padding-top: calc(100px - 60px) !important;
+  }
+}
+
+/* Fix blog hero */
+.blog-hero {
+  margin-top: 0 !important;
+}
+
+/* Fix About Protege section */
+.about-protege {
+  padding-top: 8rem !important;
+}
+
+@media (max-width: 480px) {
+  .about-protege {
+    padding-top: 5rem !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .about-protege {
+    padding-top: 6rem !important;
+  }
+}
+
+/* Fix Why Join section */
+.why-join {
+  padding-top: 6rem !important;
+}
+
+@media (max-width: 480px) {
+  .why-join {
+    padding-top: 4rem !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .why-join {
+    padding-top: 5rem !important;
+  }
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fix any overflow issues */
+* {
+  box-sizing: border-box;
+}
+
+.page-transition {
+  width: 100%;
+  overflow-x: hidden;
+}

@@ -15,23 +15,26 @@
 .about-tag {
   color: var(--protege-teal);
   letter-spacing: 2px;
-  font-size: 2.7rem;
+  font-size: clamp(1.5rem, 4vw, 2.7rem);
   margin-bottom: 0.8rem;
   font-weight: 600;
 }
 
 .about-title {
-  font-size: 2.7rem;
+  font-size: clamp(1.8rem, 5vw, 2.7rem);
   margin-bottom: 0.5rem;
   font-weight: 700;
+  line-height: 1.2;
+  padding: 0 1rem;
 }
 
 .about-subtitle {
   max-width: 850px;
   margin: 0 auto 2.85rem;
   color: #bfc6d1;
-  line-height: 1.4;
-  font-size: 1rem;
+  line-height: 1.6;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  padding: 0 1rem;
 }
 
 /* ================= PILLARS ================= */
@@ -117,15 +120,15 @@
 }
 
 .pillar-icon {
-  width: 50px;
-  height: 50px;
+  width: clamp(45px, 10vw, 50px);
+  height: clamp(45px, 10vw, 50px);
   background: rgba(32, 178, 170, 0.18);
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--protege-teal);
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 3vw, 1.4rem);
   margin-bottom: 1rem;
   transition: all 0.3s ease;
 }
@@ -136,7 +139,7 @@
 }
 
 .pillar-card h4 {
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 3.5vw, 1.4rem);
   margin-bottom: 0.8rem;
   color: white;
 }
@@ -144,7 +147,7 @@
 .pillar-card p {
   color: #cdd3dd;
   line-height: 1.6;
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
 }
 
 /* ================= TIMELINE ================= */
@@ -155,7 +158,7 @@
 
 .about-roadmap h3 {
   margin-bottom: 4rem;
-  font-size: 2.4rem;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
   font-weight: 700;
 }
 
@@ -200,8 +203,9 @@
 
 .roadmap-step {
   position: relative;
-  width: 255px;
-  height: 255px;
+  width: min(255px, 100%);
+  height: min(255px, 100%);
+  aspect-ratio: 1;
   margin: 0 auto;
   border-radius: 50%;
   background: radial-gradient(
@@ -210,16 +214,13 @@
     rgba(18, 24, 34, 0.95)
   );
   border: 1px solid rgba(32, 178, 170, 0.25);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   transform: translateY(40px);
   opacity: 0;
   transition: all 0.6s ease;
 }
-
 
 .roadmap-step::before {
   content: "";
@@ -258,10 +259,9 @@
 }
 
 .roadmap-content p {
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem);
   line-height: 1.4;
 }
-
 
 /* DOT */
 .timeline-dot {
@@ -296,7 +296,7 @@
 }
 
 .roadmap-icon {
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
   color: var(--protege-teal);
   margin-bottom: 0.8rem;
   transition: all 0.3s ease;
@@ -308,37 +308,50 @@
 }
 
 .roadmap-step h4 {
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
   margin-bottom: 0.6rem;
   color: white;
 }
 
 .roadmap-step p {
   color: #cdd3dd;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
   margin-bottom: 0.8rem;
 }
 
 .roadmap-description {
   color: #8b94a5;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
   line-height: 1.5;
   padding: 0 0.5rem;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 900px) {
-  .about-title {
-    font-size: 2rem;
+/* ================= RESPONSIVE DESIGN ================= */
+
+/* Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
+  .about-protege {
+    padding: 5rem 1rem;
   }
 
   .about-pillars {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .pillar-card {
+    padding: 1.8rem;
+  }
+
+  .about-roadmap h3 {
+    margin-bottom: 2rem;
   }
 
   .roadmap-timeline {
     grid-template-columns: 1fr;
     padding-top: 1rem;
+    gap: 2rem;
   }
 
   .timeline-base {
@@ -346,10 +359,150 @@
   }
 
   .roadmap-step {
-    padding-top: 2rem;
+    padding-top: 0;
+    width: min(220px, 90vw);
+    height: min(220px, 90vw);
   }
 
   .timeline-dot {
     display: none;
+  }
+
+  .roadmap-content {
+    padding: 1rem;
+  }
+}
+
+/* Medium Mobile (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .about-protege {
+    padding: 6rem 1.5rem;
+  }
+
+  .about-pillars {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 5rem;
+  }
+
+  .pillar-card {
+    padding: 2rem;
+  }
+
+  .about-roadmap h3 {
+    margin-bottom: 3rem;
+  }
+
+  .roadmap-timeline {
+    grid-template-columns: 1fr;
+    padding-top: 1rem;
+    gap: 2.5rem;
+  }
+
+  .timeline-base {
+    display: none;
+  }
+
+  .roadmap-step {
+    width: min(240px, 85vw);
+    height: min(240px, 85vw);
+  }
+
+  .timeline-dot {
+    display: none;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .about-protege {
+    padding: 7rem 2rem;
+  }
+
+  .about-pillars {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    margin-bottom: 6rem;
+  }
+
+  .about-roadmap h3 {
+    margin-bottom: 3.5rem;
+  }
+
+  .roadmap-timeline {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    padding-top: 1.5rem;
+  }
+
+  .timeline-base {
+    display: none;
+  }
+
+  .roadmap-step {
+    width: min(240px, 100%);
+    height: min(240px, 100%);
+  }
+
+  .timeline-dot {
+    display: none;
+  }
+}
+
+/* Small Desktop (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .about-pillars {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .pillar-card {
+    padding: 2rem;
+  }
+
+  .roadmap-timeline {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .roadmap-step {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .pillar-card:hover {
+    transform: translateY(0);
+  }
+
+  .pillar-card:active {
+    transform: scale(0.98);
+  }
+
+  .pillar-card:hover .pillar-top-line {
+    width: 0%;
+  }
+
+  .pillar-card:hover .pillar-icon {
+    transform: none;
+  }
+
+  .roadmap-step:hover {
+    transform: translateY(0);
+  }
+
+  .roadmap-step:active {
+    transform: scale(0.95);
+  }
+
+  .roadmap-step:hover .roadmap-icon {
+    transform: none;
+  }
+
+  .roadmap-step:hover .timeline-dot {
+    transform: translateX(-50%) scale(1);
+    animation: pulse 2s ease-in-out infinite;
   }
 }

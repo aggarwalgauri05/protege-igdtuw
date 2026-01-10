@@ -21,7 +21,7 @@
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(2rem, 8vw, 4rem);
   font-weight: 700;
   margin-bottom: 1.5rem;
   line-height: 1.2;
@@ -49,7 +49,7 @@
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 4vw, 1.25rem);
   color: var(--text-gray);
   margin-bottom: 3rem;
   max-width: 600px;
@@ -57,6 +57,7 @@
   margin-right: auto;
   font-weight: 300;
   line-height: 1.6;
+  padding: 0 1rem;
 }
 
 .hero-buttons {
@@ -64,12 +65,13 @@
   gap: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
+  padding: 0 1rem;
 }
 
 .btn {
   padding: 1rem 2rem;
   border-radius: 50px;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 3vw, 1rem);
   font-weight: 600;
   cursor: pointer;
   text-transform: uppercase;
@@ -78,6 +80,7 @@
   min-width: 160px;
   border: none;
   text-decoration: none;
+  text-align: center;
 }
 
 .btn-primary {
@@ -123,6 +126,26 @@
   z-index: 1;
 }
 
+.hero-background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.hero-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
 /* ================= STATS SECTION ================= */
 
 .stats {
@@ -136,11 +159,13 @@
   padding: 100px 20px;
   text-align: center;
   position: relative;
+  flex-wrap: wrap;
 }
 
 .stat {
   flex: 1;
   padding: 20px;
+  min-width: 200px;
 }
 
 .stat-icon {
@@ -156,7 +181,7 @@
 }
 
 .number {
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
   margin: 0;
   color: var(--protege-teal);
@@ -164,7 +189,58 @@
 
 .stat p {
   margin-top: 8px;
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
+  color: var(--text-gray);
+}
+
+/* ================= VIDEO BANNER ================= */
+
+.video-banner {
+  position: relative;
+  height: 60vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
+.video-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: var(--text-white);
+  padding: 0 1rem;
+}
+
+.video-content h2 {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--protege-teal);
+}
+
+.video-content p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
   color: var(--text-gray);
 }
 
@@ -201,111 +277,186 @@
   }
 }
 
-/* ================= RESPONSIVE ================= */
+/* ================= RESPONSIVE DESIGN ================= */
 
-@media (max-width: 768px) {
-  .stats {
-    flex-direction: column;
-    gap: 2.5rem;
+/* Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 6rem 1.5rem 2rem;
+    min-height: 90vh;
   }
 
-  .number {
-    font-size: 2.5rem;
+  .hero-subtitle {
+    margin-bottom: 2rem;
   }
 
   .hero-buttons {
     flex-direction: column;
+    gap: 1rem;
   }
-}
 
-@media (max-width: 1024px) {
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
   .stats {
-    gap: 3rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 60px 20px;
   }
-  
+
   .stat {
-    min-width: 200px;
+    min-width: 100%;
+    padding: 15px;
   }
-}
 
-.video-banner {
-  position: relative;
-  height: 60vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .stat-icon {
+    width: 70px;
+    height: 70px;
+  }
 
-.background-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-.video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 2;
-}
-
-.video-content {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  color: var(--text-white);
-}
-
-.video-content h2 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--protege-teal);
-}
-
-.video-content p {
-  font-size: 1.2rem;
-  color: var(--text-gray);
-}
-
-@media (max-width: 768px) {
   .video-banner {
     height: 40vh;
   }
-  
-  .video-content h2 {
-    font-size: 2rem;
+
+  .hero-bg-effect {
+    width: 400px;
+    height: 400px;
   }
-  
-  .video-content p {
-    font-size: 1rem;
-  }
-}
-.hero-background-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
 }
 
-.hero-video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 2;
+/* Medium Mobile (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .hero-section {
+    padding: 7rem 2rem 2.5rem;
+  }
+
+  .hero-buttons {
+    flex-direction: row;
+    gap: 1.25rem;
+  }
+
+  .btn {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 70px 20px;
+  }
+
+  .stat {
+    min-width: 100%;
+  }
+
+  .stat-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .video-banner {
+    height: 45vh;
+  }
+
+  .hero-bg-effect {
+    width: 500px;
+    height: 500px;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-section {
+    padding: 7rem 2.5rem 3rem;
+  }
+
+  .stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3rem;
+    padding: 80px 20px;
+  }
+
+  .stat {
+    flex: 1 1 calc(50% - 1.5rem);
+    min-width: 200px;
+  }
+
+  .video-banner {
+    height: 50vh;
+  }
+
+  .hero-bg-effect {
+    width: 600px;
+    height: 600px;
+  }
+}
+
+/* Desktop (1024px and up) */
+@media (min-width: 1024px) {
+  .stats {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4rem;
+  }
+
+  .stat {
+    flex: 1;
+  }
+}
+
+/* Large Desktop (1440px and up) */
+@media (min-width: 1440px) {
+  .hero-section {
+    padding: 8rem 3rem 4rem;
+  }
+
+  .stats {
+    padding: 120px 20px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: none;
+  }
+
+  .btn-primary:active,
+  .btn-secondary:active {
+    transform: scale(0.95);
+  }
+
+  .stat-icon:hover {
+    transform: none;
+  }
+
+  .stat-icon:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-section {
+    min-height: auto;
+    padding: 5rem 2rem 2rem;
+  }
+
+  .hero-title {
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtitle {
+    margin-bottom: 1.5rem;
+  }
+
+  .stats {
+    padding: 50px 20px;
+  }
 }

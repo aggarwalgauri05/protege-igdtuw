@@ -5,17 +5,17 @@
 
 .gallery-title {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 6vw, 2.5rem);
   letter-spacing: 2px;
   margin-bottom: 3rem;
-  color: #e3e8ea; 
+  color: #e3e8ea;
+  font-weight: 700;
 }
 
 /* Masonry layout */
 .gallery-grid {
   column-count: 4;
   column-gap: 1.5rem;
-
   margin-top: 0.4rem;
 }
 
@@ -43,10 +43,9 @@
   transform: translateY(-6px);
   box-shadow:
     0 12px 30px rgba(0, 0, 0, 0.45),
-    0 0 18px rgba(32, 178, 170, 0.35),   /* teal glow */
-    0 0 36px rgba(32, 178, 170, 0.15);   /* soft spread */
+    0 0 18px rgba(32, 178, 170, 0.35),
+    0 0 36px rgba(32, 178, 170, 0.15);
 }
-
 
 .gallery-item:hover img {
   transform: scale(1.05);
@@ -64,21 +63,107 @@
   }
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .gallery-grid {
-    column-count: 3;
-  }
-}
+/* ================= RESPONSIVE DESIGN ================= */
 
-@media (max-width: 768px) {
-  .gallery-grid {
-    column-count: 2;
-  }
-}
-
+/* Small Mobile (320px - 480px) */
 @media (max-width: 480px) {
+  .gallery-section {
+    padding: 3rem 1rem;
+  }
+
+  .gallery-title {
+    margin-bottom: 2rem;
+  }
+
   .gallery-grid {
     column-count: 1;
+    column-gap: 0;
+  }
+
+  .gallery-item {
+    margin-bottom: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .gallery-item:hover {
+    transform: none;
+  }
+
+  .gallery-item:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Medium Mobile (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .gallery-section {
+    padding: 3.5rem 1.5rem;
+  }
+
+  .gallery-title {
+    margin-bottom: 2.5rem;
+  }
+
+  .gallery-grid {
+    column-count: 2;
+    column-gap: 1.25rem;
+  }
+
+  .gallery-item {
+    margin-bottom: 1.25rem;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .gallery-section {
+    padding: 3.75rem 1.75rem;
+  }
+
+  .gallery-grid {
+    column-count: 3;
+    column-gap: 1.35rem;
+  }
+
+  .gallery-item {
+    margin-bottom: 1.35rem;
+  }
+}
+
+/* Small Desktop (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .gallery-grid {
+    column-count: 3;
+    column-gap: 1.4rem;
+  }
+
+  .gallery-item {
+    margin-bottom: 1.4rem;
+  }
+}
+
+/* Large Desktop (1280px and up) */
+@media (min-width: 1280px) {
+  .gallery-grid {
+    column-count: 4;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .gallery-item:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .gallery-item:active {
+    transform: scale(0.97);
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.35),
+      0 0 12px rgba(32, 178, 170, 0.25);
+  }
+
+  .gallery-item:hover img {
+    transform: none;
   }
 }

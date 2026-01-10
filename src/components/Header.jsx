@@ -1,30 +1,46 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-import logo from '../assets/logo-full.png'; // Add this line
+import logo from '../assets/logo-full.png';
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="header">
-      {/* Link the Logo to Home */}
-      <Link to="/" className="logo">
-  <img src={logo} alt="Protégé Logo" className="logo-img" />
-  <span className="logo-text">Protégé IGDTUW</span>
-</Link>
+      {/* Logo */}
+      <Link to="/" className="logo" onClick={closeMenu}>
+        <img src={logo} alt="Protégé Logo" className="logo-img" />
+        <span className="logo-text">Protégé IGDTUW</span>
+      </Link>
       
-      <nav className="nav">
-        <Link to="/">Home</Link>
-        <Link to="/team">Team</Link> 
-        <Link to="/events">Events</Link>
-        {/* <Link to="/mentorship">Mentorship</Link> */}
-           <Link to="/blogs">Blogs</Link>
-        <Link to="/faq">FAQs</Link>
-        
+      {/* Mobile Menu Button */}
+      <button 
+        className="mobile-menu-btn" 
+        onClick={toggleMenu}
+        aria-label="Toggle menu"
+      >
+        {isMenuOpen ? '✕' : '☰'}
+      </button>
+
+      {/* Navigation */}
+      <nav className={`nav ${isMenuOpen ? 'active' : ''}`}>
+        <Link to="/" onClick={closeMenu}>Home</Link>
+        <Link to="/team" onClick={closeMenu}>Team</Link> 
+        <Link to="/events" onClick={closeMenu}>Events</Link>
+        <Link to="/blogs" onClick={closeMenu}>Blogs</Link>
+        <Link to="/faq" onClick={closeMenu}>FAQs</Link>
       </nav>
     </header>
   );
 };
-
 
 export default Header;

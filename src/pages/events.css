@@ -29,21 +29,23 @@ body {
 }
 
 .events-hero h1 {
-  font-size: 72px;
+  font-size: clamp(2.5rem, 10vw, 72px);
   font-weight: 800;
   margin: 0;
+  line-height: 1.1;
 }
 
 .events-hero h1 span {
   color: var(--teal);
 }
 
-
-
 .events-hero p {
-  margin-top: 20px;
+  max-width: 900px;
+  margin: 24px auto 0;
+  line-height: 1.7;
   color: var(--muted);
-  font-size: 18px;
+  font-size: clamp(1rem, 3vw, 18px);
+  padding: 0 1rem;
 }
 
 .events-hero .highlight {
@@ -53,6 +55,7 @@ body {
 .experience {
   color: var(--teal);
 }
+
 /* CONTENT */
 .events-content {
   display: flex;
@@ -63,6 +66,7 @@ body {
 /* FILTER */
 .year-filter {
   min-width: 120px;
+  flex-shrink: 0;
 }
 
 .filter-title {
@@ -76,19 +80,26 @@ body {
   background: none;
   border: none;
   color: #5f6f6f;
-  font-size: 24px;
+  font-size: clamp(1.5rem, 4vw, 24px);
   margin: 14px 0;
   cursor: pointer;
   text-align: left;
+  transition: all 0.3s ease;
 }
 
 .year-filter button.active {
+  color: var(--teal);
+  transform: translateX(5px);
+}
+
+.year-filter button:hover {
   color: var(--teal);
 }
 
 /* MAIN */
 .events-main {
   flex: 1;
+  min-width: 0;
 }
 
 .section-label {
@@ -99,7 +110,7 @@ body {
 }
 
 .events-main h2 {
-  font-size: 48px;
+  font-size: clamp(2rem, 6vw, 48px);
   margin-bottom: 40px;
 }
 
@@ -110,7 +121,7 @@ body {
 /* GRID */
 .event-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 32px;
 }
 
@@ -126,13 +137,14 @@ body {
   box-shadow:
     0 0 0 1px rgba(25, 199, 184, 0.15),
     0 20px 50px rgba(0, 0, 0, 0.6);
-  transition: box-shadow 0.4s ease;
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
 }
 
 .event-card:hover {
   box-shadow:
     0 0 0 1px rgba(25, 199, 184, 0.4),
     0 30px 80px rgba(0, 0, 0, 0.8);
+  transform: translateY(-5px);
 }
 
 /* Gradient overlay */
@@ -156,7 +168,7 @@ body {
   color: #000;
   padding: 6px 14px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: clamp(0.7rem, 2vw, 12px);
   font-weight: 600;
   z-index: 2;
 }
@@ -172,113 +184,79 @@ body {
 
 .event-date {
   color: var(--teal);
-  font-size: 14px;
+  font-size: clamp(0.8rem, 2.5vw, 14px);
   margin-bottom: 10px;
 }
 
 .event-content h3 {
-  font-size: 26px;
+  font-size: clamp(1.3rem, 4vw, 26px);
   margin: 0 0 12px;
+  line-height: 1.3;
 }
 
 .event-desc {
   color: var(--muted);
-  font-size: 15px;
+  font-size: clamp(0.9rem, 2.5vw, 15px);
   line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* MODAL */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(6px);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.event-modal {
-  background: #0b1111;
-  border-radius: 20px;
-  width: min(600px, 90%);
-  padding: 32px;
-  position: relative;
-}
-
-.modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-
-
-
-
-
-
-.events-hero p {
-  max-width: 900px;
-  margin: 24px auto 0;
-  line-height: 1.7;
-}
-/* ===============================
-   EVENT DETAIL VIEW
-================================ */
-
+/* EVENT DETAIL VIEW */
 .event-detail-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(5, 8, 8, 0.75);
   backdrop-filter: blur(6px);
   z-index: 2000;
-
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
 }
 
 .event-detail {
   background: #0b1111;
-
-  width: fit-content;        /* 🔥 hug content */
-  max-width: 520px;          /* 🔥 smaller modal */
-  padding: 20px 22px;        /* 🔥 tighter spacing */
-
+  width: fit-content;
+  max-width: min(520px, 95vw);
+  padding: 20px 22px;
   border-radius: 20px;
   position: relative;
-
+  max-height: 90vh;
+  overflow-y: auto;
   box-shadow:
     0 0 0 1px rgba(25, 199, 184, 0.15),
     0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
+.event-detail-header h1 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  margin: 0 0 0.5rem 0;
+  padding-right: 30px;
+  line-height: 1.3;
+}
 
-/* ---------- IMAGE (SQUARE + FULLY VISIBLE) ---------- */
+.event-detail-date {
+  color: var(--teal);
+  font-size: clamp(0.85rem, 3vw, 1rem);
+  margin-bottom: 1rem;
+}
 
+/* IMAGE (SQUARE + FULLY VISIBLE) */
 .event-detail-image {
   width: 100%;
-  max-width: 420px;   
+  max-width: 420px;
   aspect-ratio: 1 / 1;
-
-  margin: 24px auto;  /* center */
+  margin: 24px auto;
   border-radius: 16px;
   overflow: hidden;
-
   background: #050808;
-
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 
 .event-detail-image img {
   max-width: 100%;
@@ -288,20 +266,25 @@ body {
   object-fit: contain;
 }
 
+.event-detail-content p {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  margin-bottom: 1.5rem;
+}
 
-/* ---------- CLOSE BUTTON ---------- */
-
+/* CLOSE BUTTON */
 .event-detail-close {
   position: absolute;
   top: 18px;
   right: 18px;
-
   background: none;
   border: none;
-
   color: #9ef3ea;
   font-size: 22px;
   cursor: pointer;
+  z-index: 10;
+  transition: color 0.3s ease;
 }
 
 .event-detail-close:hover {
@@ -310,24 +293,17 @@ body {
 
 .event-instagram-btn {
   margin-top: 18px;
-  align-self: flex-start;
-
   display: inline-flex;
   align-items: center;
   gap: 10px;
-
   padding: 10px 18px;
   border-radius: 999px;
-
   background: rgba(25, 199, 184, 0.15);
   border: 1px solid rgba(25, 199, 184, 0.35);
-
   color: #19c7b8;
-  font-size: 0.9rem;
+  font-size: clamp(0.85rem, 3vw, 0.9rem);
   font-weight: 500;
-
   text-decoration: none;
-
   transition: all 0.25s ease;
 }
 
@@ -337,10 +313,157 @@ body {
 }
 
 .insta-icon {
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 3vw, 1rem);
 }
 
 .insta-arrow {
   font-size: 0.75rem;
   opacity: 0.8;
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+
+/* Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
+  .events-hero {
+    padding: 100px 5% 40px;
+  }
+
+  .events-content {
+    flex-direction: column;
+    padding: 40px 5%;
+    gap: 30px;
+  }
+
+  .year-filter {
+    min-width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    scrollbar-width: thin;
+  }
+
+  .year-filter button {
+    margin: 0;
+    white-space: nowrap;
+    font-size: 20px;
+  }
+
+  .filter-title {
+    display: none;
+  }
+
+  .event-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .event-card {
+    height: 280px;
+  }
+
+  .event-content {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+  }
+
+  .event-detail {
+    padding: 16px 18px;
+    max-width: 100%;
+  }
+
+  .event-detail-image {
+    margin: 16px auto;
+  }
+
+  .event-instagram-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Medium Mobile (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .events-hero {
+    padding: 110px 6% 50px;
+  }
+
+  .events-content {
+    flex-direction: column;
+    padding: 50px 6%;
+    gap: 40px;
+  }
+
+  .year-filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  .year-filter button {
+    margin: 0;
+  }
+
+  .event-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 28px;
+  }
+
+  .event-card {
+    height: 300px;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .events-hero {
+    padding: 110px 7% 55px;
+  }
+
+  .events-content {
+    padding: 60px 7%;
+    gap: 60px;
+  }
+
+  .event-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+/* Desktop (1024px and up) */
+@media (min-width: 1024px) {
+  .event-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large Desktop (1440px and up) */
+@media (min-width: 1440px) {
+  .event-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .event-card:hover {
+    transform: none;
+  }
+
+  .event-card:active {
+    transform: translateY(-3px);
+  }
+
+  .year-filter button:hover {
+    transform: none;
+  }
+
+  .year-filter button:active {
+    transform: scale(0.95);
+  }
 }

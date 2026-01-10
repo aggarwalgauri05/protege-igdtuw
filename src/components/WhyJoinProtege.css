@@ -15,25 +15,30 @@
 .why-tag {
   color: var(--protege-teal);
   letter-spacing: 3px;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
   margin-bottom: 0.5rem;
 }
 
 .why-title {
-  font-size: 2.7rem;
+  font-size: clamp(2rem, 6vw, 2.7rem);
   margin-bottom: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 0 1rem;
 }
 
 .why-subtitle {
   max-width: 700px;
   margin: 0 auto 3.5rem;
   color: #bfc6d1;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  line-height: 1.6;
+  padding: 0 1rem;
 }
 
 .why-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2x2 grid */
+  grid-template-columns: repeat(2, 1fr);
   gap: 2.5rem;
   max-width: 1200px;
   margin: auto;
@@ -50,7 +55,6 @@
   border-radius: 18px;
   text-align: left;
   overflow: hidden;
-
   transform: translateY(40px);
   opacity: 0;
   transition: all 0.6s ease;
@@ -85,13 +89,12 @@
   opacity: 1;
 }
 
-
 .why-card::after {
   content: "";
   position: absolute;
   left: 0px;
   right: 0px;
-  top: 0px;              /* ✅ TOP only */
+  top: 0px;
   height: 2px;
   background: rgba(255, 255, 255, 0.08);
   pointer-events: none;
@@ -100,7 +103,7 @@
 .why-card span.top-line {
   position: absolute;
   left: 0px;
-  top: 0px;              /* ✅ TOP only */
+  top: 0px;
   height: 2px;
   width: 0%;
   background: var(--protege-teal);
@@ -112,18 +115,14 @@
   width: 100%;
 }
 
-
-
 .why-index {
   position: absolute;
   top: 18px;
   right: 22px;
-  font-size: 4.2rem;
+  font-size: clamp(3rem, 8vw, 4.2rem);
   font-weight: 700;
   color: rgba(255, 255, 255, 0.035);
 }
-
-
 
 .why-header {
   display: flex;
@@ -133,37 +132,142 @@
 }
 
 .why-icon {
-  width: 52px;
-  height: 52px;
+  width: clamp(45px, 10vw, 52px);
+  height: clamp(45px, 10vw, 52px);
   background: rgba(32, 178, 170, 0.18);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
   color: var(--protege-teal);
   flex-shrink: 0;
 }
 
 .why-card h3 {
-  font-size: 1.45rem; /* bigger heading */
+  font-size: clamp(1.2rem, 3.5vw, 1.45rem);
   line-height: 1.2;
 }
 
 .why-text {
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
   line-height: 1.7;
   color: #cdd3dd;
-  margin-left: 64px; /* aligns text under heading, not icon */
+  margin-left: 64px;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+/* ================= RESPONSIVE DESIGN ================= */
+
+/* Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
+  .why-join {
+    padding: 4rem 1rem;
+  }
+
+  .why-subtitle {
+    margin-bottom: 2rem;
+  }
+
   .why-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .why-card {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .why-index {
+    top: 12px;
+    right: 15px;
   }
 
   .why-text {
     margin-left: 0;
+    margin-top: 0.75rem;
+  }
+
+  .why-header {
+    gap: 1rem;
+  }
+}
+
+/* Medium Mobile (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .why-join {
+    padding: 5rem 1.5rem;
+  }
+
+  .why-subtitle {
+    margin-bottom: 2.5rem;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .why-card {
+    padding: 2rem 2rem;
+  }
+
+  .why-text {
+    margin-left: 0;
+    margin-top: 0.75rem;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .why-join {
+    padding: 5.5rem 2rem;
+  }
+
+  .why-subtitle {
+    margin-bottom: 3rem;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  .why-card {
+    padding: 2.1rem 2.25rem;
+  }
+
+  .why-text {
+    margin-left: 0;
+    margin-top: 0.75rem;
+  }
+}
+
+/* Desktop (1024px and up) */
+@media (min-width: 1024px) {
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .why-text {
+    margin-left: 64px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .why-card:hover {
+    transform: translateY(0);
+  }
+
+  .why-card:active {
+    transform: scale(0.98);
+  }
+
+  .why-card:hover span.top-line {
+    width: 0%;
+  }
+
+  .why-card:hover::before {
+    opacity: 0;
   }
 }
