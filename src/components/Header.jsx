@@ -36,6 +36,7 @@ const Header = () => {
         <Link to="/" onClick={closeMenu}>Home</Link>
         <Link to="/team" onClick={closeMenu}>Team</Link> 
         <Link to="/events" onClick={closeMenu}>Events</Link>
+        <Link to="/mentorship" onClick={closeMenu}>Mentorship</Link>
         <Link to="/blogs" onClick={closeMenu}>Blogs</Link>
         <Link to="/faq" onClick={closeMenu}>FAQs</Link>
       </nav>
