@@ -1,4 +1,10 @@
+console.log("MAIL CONFIG:", {
+  user: process.env.EMAIL_USER ? "SET" : "MISSING",
+  pass: process.env.EMAIL_PASS ? "SET" : "MISSING"
+});
+
 const nodemailer = require("nodemailer");
+
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
