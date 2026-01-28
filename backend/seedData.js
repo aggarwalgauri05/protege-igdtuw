@@ -107,7 +107,7 @@ const dummyMentors = [
 const seedDatabase = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/protege-mentorship');
+    await mongoose.connect(process.env.MONGODB_URI );
     console.log('✅ Connected to MongoDB');
 
     // Clear existing data and indexes

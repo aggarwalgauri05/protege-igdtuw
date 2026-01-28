@@ -203,13 +203,16 @@ const FindMyMentorForm = ({ onClose }) => {
       };
 
       // Call backend API
-      const response = await fetch('http://localhost:5000/api/mentees/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(menteeData)
-      });
+     const response = await fetch(
+  `${import.meta.env.VITE_API_BASE_URL}/api/mentees/register`,
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(menteeData)
+  }
+);
 
       const result = await response.json();
       
