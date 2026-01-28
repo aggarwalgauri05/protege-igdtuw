@@ -248,18 +248,20 @@ router.post('/register', async (req, res) => {
     // Populate mentor details for response
     await menteeData.populate('allocatedMentor');
     // ✅ SEND EMAIL TO MENTEE
-await sendEmail({
+// 📧 Send email to mentee (NON-BLOCKING)
+sendEmail({
   to: menteeData.email,
-  subject: '🎉 Your Mentor Has Been Allocated!',
+  subject: '🌱 Welcome to XSEED Mentorship Program!',
   html: menteeEmailTemplate(menteeData, allocatedMentor)
 });
 
-// ✅ SEND EMAIL TO MENTOR
-await sendEmail({
-  to: allocatedMentor.personalEmail,
-  subject: '📢 New Mentee Assigned',
+// 📧 Send email to mentor (COLLEGE EMAIL ONLY, NON-BLOCKING)
+sendEmail({
+  to: allocatedMentor.collegeEmail,
+  subject: '🌟 You have been assigned a mentee – XSEED',
   html: mentorEmailTemplate(allocatedMentor, menteeData)
 });
+
 
     res.status(201).json({
       success: true,

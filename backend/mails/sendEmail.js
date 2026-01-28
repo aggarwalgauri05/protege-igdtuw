@@ -17,7 +17,7 @@ async function sendEmail({ to, subject, html }) {
       html
     });
 
-    console.log(`📧 Email sent to ${to}`);
+    console.log(`📧 Email queued for ${to}`);
   } catch (error) {
     console.error("❌ Email error:", error.message);
   }
