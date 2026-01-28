@@ -104,6 +104,11 @@ const mentorSchema = new mongoose.Schema({
     default: 0
   },
 
+  allocatedMentees: {
+    type: [String],
+    default: []
+  },
+
   isAvailable: {
     type: Boolean,
     default: true

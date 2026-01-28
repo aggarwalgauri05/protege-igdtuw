@@ -178,6 +178,7 @@ const FindMyMentorForm = ({ onClose }) => {
       const menteeData = {
         fullName: formData.fullName,
         email: formData.email,
+        year: formData.year, // Include year field
         currentRole: 'Student', // Based on form context
         dsaLevel: formData.dsaLevel === 'beginner' ? 'Beginner' : 
                   formData.dsaLevel === 'intermediate' ? 'Intermediate' : 

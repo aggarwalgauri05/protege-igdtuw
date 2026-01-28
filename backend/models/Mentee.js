@@ -13,6 +13,11 @@ const menteeSchema = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
+  year: {
+    type: String,
+    required: true,
+    enum: ['1st Year', '2nd Year', '3rd Year', '4th Year']
+  },
   currentRole: {
     type: String,
     required: true,
@@ -51,6 +56,11 @@ const menteeSchema = new mongoose.Schema({
   allocatedMentor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Mentor',
+    default: null
+  },
+  allocatedMentorName: {
+    type: String,
+    trim: true,
     default: null
   },
   allocationDate: {
