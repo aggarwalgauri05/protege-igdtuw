@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Mentee = require('../models/Mentee');
 const Mentor = require('../models/Mentor');
-const sendEmail = require('../utils/sendEmail');
+const sendEmail = require('../mails/sendEmail');
 const {
   menteeEmailTemplate,
   mentorEmailTemplate
-} = require('../utils/emailTemplates');
+} = require('../mails/emailTemplates');
 
 // Helper function to get numeric value for DSA levels
 const getDSALevelValue = (level) => {
