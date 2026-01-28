@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const API_BASE = 'http://127.0.0.1:5050/api';
+const API_BASE = `${process.env.API_BASE_URL}/api`;
 
 // Test mentee data
 const testMentees = [
