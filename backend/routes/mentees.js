@@ -46,11 +46,11 @@ const allocateMentor = async (menteeData) => {
     const menteeLevel = getDSALevelValue(menteeData.dsaLevel);
     const menteeYearValue = getYearValue(menteeData.year);
     
-    // Find available mentors with higher or equal DSA level
+    // Find all available mentors (including Basic level for Beginner mentees)
     const availableMentors = await Mentor.find({
       isActive: true,
       domain: {
-        $in: ['Intermediate', 'Advanced', 'Competitive Programming']
+        $in: ['Basic', 'Intermediate', 'Advanced', 'Competitive Programming']
       }
     });
 
@@ -152,13 +152,33 @@ const allocateMentor = async (menteeData) => {
 
 // Helper function to prioritize mentors
 const prioritizeMentors = (mentors, menteeData) => {
+  const menteeLevelValue = getDSALevelValue(menteeData.dsaLevel);
+  
   return mentors.sort((a, b) => {
     // 1. Lower mentee count priority (MOST IMPORTANT - better distribution)
     if (a.currentMentees !== b.currentMentees) {
       return a.currentMentees - b.currentMentees;
     }
     
-    // 2. Language match priority
+    // 2. Exact DSA level match priority (same level mentors first)
+    const aLevel = getDSALevelValue(a.domain);
+    const bLevel = getDSALevelValue(b.domain);
+    const aExactMatch = aLevel === menteeLevelValue ? 1 : 0;
+    const bExactMatch = bLevel === menteeLevelValue ? 1 : 0;
+    
+    if (aExactMatch !== bExactMatch) {
+      return bExactMatch - aExactMatch; // Exact match first
+    }
+    
+    // 3. If both are exact match or both are not, prefer closer level (lower difference)
+    const aLevelDiff = Math.abs(aLevel - menteeLevelValue);
+    const bLevelDiff = Math.abs(bLevel - menteeLevelValue);
+    
+    if (aLevelDiff !== bLevelDiff) {
+      return aLevelDiff - bLevelDiff; // Closer level first
+    }
+    
+    // 4. Language match priority
     const aLangMatch = a.preferredLanguage === menteeData.preferredLanguage ? 1 : 0;
     const bLangMatch = b.preferredLanguage === menteeData.preferredLanguage ? 1 : 0;
     
@@ -166,10 +186,8 @@ const prioritizeMentors = (mentors, menteeData) => {
       return bLangMatch - aLangMatch;
     }
     
-    // 3. Higher DSA level priority
-    const aLevel = getDSALevelValue(a.domain);
-    const bLevel = getDSALevelValue(b.domain);
-    return bLevel - aLevel;
+    // 5. If everything else is equal, prefer lower DSA level (avoid over-qualified mentors)
+    return aLevel - bLevel;
   });
 };
 
@@ -210,16 +228,16 @@ router.post('/register', async (req, res) => {
     const maxMentees = getMaxMenteesNumber(allocatedMentor.maxMentees);
     const newMenteeCount = allocatedMentor.currentMentees + 1;
     
-    // Add mentee name to mentor's allocatedMentees array
-    const updatedAllocatedMentees = [...(allocatedMentor.allocatedMentees || []), menteeData.fullName];
-    
-    await Mentor.findByIdAndUpdate(
+    // Use $push to atomically add mentee name to allocatedMentees array
+    // Use $inc to atomically increment currentMentees counter
+    const updatedMentor = await Mentor.findByIdAndUpdate(
       allocatedMentor._id,
       {
-        currentMentees: newMenteeCount,
-        isAvailable: newMenteeCount < maxMentees,
-        allocatedMentees: updatedAllocatedMentees
-      }
+        $inc: { currentMentees: 1 },
+        $push: { allocatedMentees: menteeData.fullName },
+        $set: { isAvailable: newMenteeCount < maxMentees }
+      },
+      { new: true }
     );
 
     // Populate mentor details for response
