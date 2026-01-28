@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Mentee = require('../models/Mentee');
 const Mentor = require('../models/Mentor');
+const sendEmail = require('../Utils/sendEmail');
+const {
+  menteeEmailTemplate,
+  mentorEmailTemplate
+} = require('../Utils/emailTemplates');
 
 // Helper function to get numeric value for DSA levels
 const getDSALevelValue = (level) => {
@@ -242,7 +247,20 @@ router.post('/register', async (req, res) => {
 
     // Populate mentor details for response
     await menteeData.populate('allocatedMentor');
-    
+    // ✅ SEND EMAIL TO MENTEE
+await sendEmail({
+  to: menteeData.email,
+  subject: '🎉 Your Mentor Has Been Allocated!',
+  html: menteeEmailTemplate(menteeData, allocatedMentor)
+});
+
+// ✅ SEND EMAIL TO MENTOR
+await sendEmail({
+  to: allocatedMentor.personalEmail,
+  subject: '📢 New Mentee Assigned',
+  html: mentorEmailTemplate(allocatedMentor, menteeData)
+});
+
     res.status(201).json({
       success: true,
       message: 'Mentee registered and mentor allocated successfully!',

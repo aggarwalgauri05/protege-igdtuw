@@ -176,32 +176,45 @@ const FindMyMentorForm = ({ onClose }) => {
     try {
       // Prepare data for backend API
       const menteeData = {
-        fullName: formData.fullName,
-        email: formData.email,
-        year: formData.year, // Include year field
-        currentRole: 'Student', // Based on form context
-        dsaLevel: formData.dsaLevel === 'beginner' ? 'Beginner' : 
-                  formData.dsaLevel === 'intermediate' ? 'Intermediate' : 
-                  formData.dsaLevel === 'advanced' ? 'Advanced' : 'Intermediate',
-        preferredLanguage: formData.programmingLanguage || 'Python',
-        interestedTopics: formData.goals.map(goal => {
-          // Map goals to DSA topics
-          if (goal === 'internship-rounds') return 'Arrays & Strings';
-          if (goal === 'placement-rounds') return 'Dynamic Programming';
-          if (goal === 'fundamentals') return 'Arrays & Strings';
-          if (goal === 'competitive') return 'Graphs';
-          return 'Arrays & Strings'; // Default
-        }),
-        platforms: formData.platform.filter(p => p !== 'other' && p !== 'none').map(p => {
-          // Map platform values to backend enum
-          if (p === 'leetcode') return 'LeetCode';
-          if (p === 'codeforces') return 'Codeforces';
-          if (p === 'codechef') return 'CodeChef';
-          // Skip GFG as it's not in the enum
-          return null;
-        }).filter(p => p !== null),
-        goals: formData.mentorReason
-      };
+  fullName: formData.fullName,
+  email: formData.email,
+  phone: formData.phone,
+  college: formData.college,
+  branch: formData.branch,
+  linkedin: formData.linkedin,
+
+  year: formData.year,
+  currentRole: 'Student',
+
+  dsaLevel:
+    formData.dsaLevel === 'beginner'
+      ? 'Beginner'
+      : formData.dsaLevel === 'intermediate'
+      ? 'Intermediate'
+      : 'Advanced',
+
+  preferredLanguage: formData.programmingLanguage || 'Python',
+
+  interestedTopics: formData.goals.map(goal => {
+    if (goal === 'internship-rounds') return 'Arrays & Strings';
+    if (goal === 'placement-rounds') return 'Dynamic Programming';
+    if (goal === 'fundamentals') return 'Arrays & Strings';
+    if (goal === 'competitive') return 'Graphs';
+    return 'Arrays & Strings';
+  }),
+
+  platforms: formData.platform
+    .filter(p => p !== 'other' && p !== 'none')
+    .map(p => {
+      if (p === 'leetcode') return 'LeetCode';
+      if (p === 'codeforces') return 'Codeforces';
+      if (p === 'codechef') return 'CodeChef';
+      return null;
+    })
+    .filter(Boolean),
+
+  goals: formData.mentorReason
+};
 
       // Call backend API
      const response = await fetch(
