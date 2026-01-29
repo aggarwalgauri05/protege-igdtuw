@@ -47,12 +47,12 @@ async function importMentorsFromExcel(filePath) {
         let platforms = Array.isArray(row.platforms) ? row.platforms : 
                        (row.platforms || row.Platforms || '').split(',').map(p => p.trim()).filter(p => p);
         platforms = platforms.map(p => {
-          if (p.toLowerCase().includes('leetcode')) return 'Leetcode';
+          if (p.toLowerCase().includes('leetcode')) return 'LeetCode';;
           if (p.toLowerCase().includes('codeforces')) return 'Codeforces';
-          if (p.toLowerCase().includes('codechef')) return 'Codechef';
+          if (p.toLowerCase().includes('codechef')) return 'CodeChef';
           if (p.toLowerCase().includes('gfg') || p.toLowerCase().includes('geeksforgeeks')) return 'GFG';
           return 'Other';
-        }).filter(p => ['Leetcode', 'Codeforces', 'Codechef', 'GFG', 'Other'].includes(p));
+        }).filter(p => ['LeetCode', 'Codeforces', 'CodeChef', 'GFG', 'Other'].includes(p));
 
         const mentorData = {
           name: row.name || row.Name,

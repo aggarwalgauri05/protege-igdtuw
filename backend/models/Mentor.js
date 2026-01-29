@@ -77,10 +77,10 @@ const mentorSchema = new mongoose.Schema({
   },
 
   platforms: {
-    type: [String],
-    required: true,
-    enum: ["Leetcode", "Codeforces", "Codechef", "GFG", "Other"]
-  },
+  type: [String],
+  required: true,
+  enum: ["LeetCode", "Codeforces", "CodeChef", "GFG", "Other"] // Match form
+},
 
   commitmentLevel: {
     type: String,

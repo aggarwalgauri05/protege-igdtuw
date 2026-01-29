@@ -53,7 +53,8 @@ const menteeSchema = new mongoose.Schema({
   dsaLevel: {
     type: String,
     required: true,
-    enum: ['Beginner', 'Intermediate', 'Strong Intermediate', 'Advanced']
+    // ✅ FIXED: Only 3 levels to match your form
+    enum: ['Beginner', 'Intermediate', 'Advanced']
   },
 
   preferredLanguage: {
@@ -64,6 +65,7 @@ const menteeSchema = new mongoose.Schema({
 
   interestedTopics: [{
     type: String,
+    required: false, // ✅ FIXED: Made optional since you're removing hardcoded mapping
     enum: [
       'Arrays & Strings',
       'Recursion & Backtracking',
@@ -82,6 +84,19 @@ const menteeSchema = new mongoose.Schema({
 
   goals: {
     type: String,
+    trim: true
+  },
+
+  // Sponsorship Task Fields
+  sponsorshipTaskCompleted: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+
+  sponsorshipScreenshot: {
+    type: String, // URL or path to the uploaded screenshot
+    required: true,
     trim: true
   },
 
