@@ -351,6 +351,12 @@ router.post('/register', upload.single('sponsorshipScreenshot'), async (req, res
     console.log('📥 Received registration request');
     console.log('Body:', req.body);
     console.log('File:', req.file);
+if (!req.file) {
+  return res.status(400).json({
+    success: false,
+    message: 'Sponsorship screenshot is required'
+  });
+}
 
     // Check if mentee already exists
     const existingMentee = await Mentee.findOne({ email: req.body.email });
@@ -392,7 +398,7 @@ const interestedTopics = safeParse(req.body.interestedTopics);
       platforms: platforms,
       goals: req.body.goals || '',
       sponsorshipTaskCompleted: req.body.sponsorshipTaskCompleted === 'true',
-      sponsorshipScreenshot: req.file ? req.file.path : ''
+      sponsorshipScreenshot: req.file.path
     };
 
     console.log('📝 Prepared mentee data:', menteeData);
