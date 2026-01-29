@@ -18,7 +18,11 @@ const FindMyMentorForm = ({ onClose }) => {
     problemsSolved: '',
     platform: [],
     otherPlatform: '',
-    // Section 3
+    // Section 3 - Sponsorship Task (NEW)
+    sponsorshipTaskCompleted: false,
+    sponsorshipScreenshot: null,
+    sponsorshipScreenshotPreview: '',
+    // Section 4 (was Section 3)
     goals: [],
     otherGoal: '',
     mentorReason: '',
@@ -140,6 +144,16 @@ const FindMyMentorForm = ({ onClose }) => {
     }
 
     if (section === 3) {
+      // Sponsorship task validation
+      if (!formData.sponsorshipTaskCompleted) {
+        newErrors.sponsorshipTask = 'You must complete the sponsorship task';
+      }
+      if (!formData.sponsorshipScreenshot) {
+        newErrors.sponsorshipScreenshot = 'Please upload a screenshot of the completed task';
+      }
+    }
+
+    if (section === 4) {
       if (formData.goals.length === 0) newErrors.goals = 'Select at least one goal';
       if (formData.goals.includes('other') && !formData.otherGoal.trim()) {
         newErrors.otherGoal = 'Please specify your goal';
@@ -169,64 +183,62 @@ const FindMyMentorForm = ({ onClose }) => {
   };
 
   const handleSubmit = async () => {
-    if (!validateSection(3)) return;
+    if (!validateSection(4)) return;
 
     setIsSubmitting(true);
     
     try {
-      // Prepare data for backend API
-      const menteeData = {
-  fullName: formData.fullName,
-  email: formData.email,
-  phone: formData.phone,
-  college: formData.college,
-  branch: formData.branch,
-  linkedin: formData.linkedin,
-
-  year: formData.year,
-  currentRole: 'Student',
-
-  dsaLevel:
-    formData.dsaLevel === 'beginner'
-      ? 'Beginner'
-      : formData.dsaLevel === 'intermediate'
-      ? 'Intermediate'
-      : 'Advanced',
-
-  preferredLanguage: formData.programmingLanguage || 'Python',
-
-  interestedTopics: formData.goals.map(goal => {
-    if (goal === 'internship-rounds') return 'Arrays & Strings';
-    if (goal === 'placement-rounds') return 'Dynamic Programming';
-    if (goal === 'fundamentals') return 'Arrays & Strings';
-    if (goal === 'competitive') return 'Graphs';
-    return 'Arrays & Strings';
-  }),
-
-  platforms: formData.platform
-    .filter(p => p !== 'other' && p !== 'none')
-    .map(p => {
-      if (p === 'leetcode') return 'LeetCode';
-      if (p === 'codeforces') return 'Codeforces';
-      if (p === 'codechef') return 'CodeChef';
-      return null;
-    })
-    .filter(Boolean),
-
-  goals: formData.mentorReason
-};
+      // Prepare FormData for file upload
+      const submitData = new FormData();
+      
+      // Add all form fields
+      submitData.append('fullName', formData.fullName);
+      submitData.append('email', formData.email);
+      submitData.append('phone', formData.phone);
+      submitData.append('college', formData.college);
+      submitData.append('branch', formData.branch);
+      submitData.append('linkedin', formData.linkedin);
+      submitData.append('year', formData.year);
+      submitData.append('currentRole', 'Student');
+      
+      // DSA Level
+      const dsaLevelMap = {
+        'beginner': 'Beginner',
+        'intermediate': 'Intermediate',
+        'advanced': 'Advanced'
+      };
+      submitData.append('dsaLevel', dsaLevelMap[formData.dsaLevel] || 'Beginner');
+      
+      submitData.append('preferredLanguage', formData.programmingLanguage || 'Python');
+      
+      // Platforms
+      const platformsMap = {
+        'leetcode': 'LeetCode',
+        'codeforces': 'Codeforces',
+        'codechef': 'CodeChef'
+      };
+      const platforms = formData.platform
+        .filter(p => p !== 'other' && p !== 'none')
+        .map(p => platformsMap[p])
+        .filter(Boolean);
+      submitData.append('platforms', JSON.stringify(platforms));
+      
+      submitData.append('goals', formData.mentorReason);
+      
+      // Sponsorship Task Data
+      submitData.append('sponsorshipTaskCompleted', formData.sponsorshipTaskCompleted);
+      if (formData.sponsorshipScreenshot) {
+        submitData.append('sponsorshipScreenshot', formData.sponsorshipScreenshot);
+      }
 
       // Call backend API
-     const response = await fetch(
-  `${import.meta.env.VITE_API_BASE_URL}/api/mentees/register`,
-  {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(menteeData)
-  }
-);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/mentees/register`,
+        {
+          method: 'POST',
+          body: submitData
+        }
+      );
 
       const result = await response.json();
       
@@ -279,6 +291,35 @@ const FindMyMentorForm = ({ onClose }) => {
         [key]: !prev.commitments[key]
       }
     }));
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setErrors(prev => ({ ...prev, sponsorshipScreenshot: 'Please upload an image file' }));
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setErrors(prev => ({ ...prev, sponsorshipScreenshot: 'File size must be less than 5MB' }));
+        return;
+      }
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData(prev => ({
+          ...prev,
+          sponsorshipScreenshot: file,
+          sponsorshipScreenshotPreview: reader.result
+        }));
+        setErrors(prev => ({ ...prev, sponsorshipScreenshot: null }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   if (submitSuccess) {
@@ -533,7 +574,7 @@ const FindMyMentorForm = ({ onClose }) => {
 
       {/* Progress Bar */}
       <div className="progress-bar-top">
-        <div className="progress-fill" style={{ width: `${(currentSection / 3) * 100}%` }}></div>
+        <div className="progress-fill" style={{ width: `${(currentSection / 4) * 100}%` }}></div>
       </div>
 
       {/* Progress Indicators */}
@@ -552,8 +593,15 @@ const FindMyMentorForm = ({ onClose }) => {
           <span className="step-label">DSA Level</span>
         </div>
         <div className="progress-line"></div>
-        <div className={`progress-step ${currentSection >= 3 ? 'active' : ''}`}>
-          <div className="step-circle">3</div>
+        <div className={`progress-step ${currentSection >= 3 ? 'active' : ''} ${currentSection > 3 ? 'completed' : ''}`}>
+          <div className="step-circle">
+            {currentSection > 3 ? <Check size={16} /> : '3'}
+          </div>
+          <span className="step-label">Task</span>
+        </div>
+        <div className="progress-line"></div>
+        <div className={`progress-step ${currentSection >= 4 ? 'active' : ''}`}>
+          <div className="step-circle">4</div>
           <span className="step-label">Goals</span>
         </div>
       </div>
@@ -792,6 +840,121 @@ const FindMyMentorForm = ({ onClose }) => {
 
           {/* SECTION 3: Goals & Commitment */}
           {currentSection === 3 && (
+            <div className="section" key="section-3">
+              <div className="section-header">
+                <h2 className="section-title">🎯 Mandatory Task</h2>
+                <p className="section-subtitle">Complete this task to proceed with mentor allocation</p>
+              </div>
+
+              <div className="form-fields">
+
+                <div className="task-card">
+                  <div className="task-header">
+                    <span className="task-badge">Required Task</span>
+                    <h3>Complete the Form</h3>
+                  </div>
+                  
+                  <div className="task-steps">
+                    <div className="step">
+                      <span className="step-number">1</span>
+                      <div className="step-content">
+                        <h4>Fill out the form</h4>
+                        <p>Click the button below to open the Google Form in a new tab</p>
+                        <a 
+                          href="https://forms.google.com/your-dummy-form-link" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="form-link-btn"
+                        >
+                          <span>Open Form</span>
+                          <span>→</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="step">
+                      <span className="step-number">2</span>
+                      <div className="step-content">
+                        <h4>Take a screenshot</h4>
+                        <p>After submitting the form, take a screenshot of the confirmation page</p>
+                      </div>
+                    </div>
+
+                    <div className="step">
+                      <span className="step-number">3</span>
+                      <div className="step-content">
+                        <h4>Upload the screenshot</h4>
+                        <p>Upload your screenshot below to verify completion</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-field-group">
+                  <label className="field-label">Upload Screenshot *</label>
+                  <div className="file-upload-area">
+                    <input
+                      type="file"
+                      id="screenshot-upload"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      style={{ display: 'none' }}
+                    />
+                    <label htmlFor="screenshot-upload" className="file-upload-label">
+                      {formData.sponsorshipScreenshotPreview ? (
+                        <div className="preview-container">
+                          <img 
+                            src={formData.sponsorshipScreenshotPreview} 
+                            alt="Screenshot preview" 
+                            className="screenshot-preview"
+                          />
+                          <div className="preview-overlay">
+                            <span>Click to change</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="upload-prompt">
+                          <div className="upload-icon">📤</div>
+                          <span className="upload-text">Click to upload or drag and drop</span>
+                          <span className="upload-hint">PNG, JPG, JPEG (max 5MB)</span>
+                        </div>
+                      )}
+                    </label>
+                  </div>
+                  {errors.sponsorshipScreenshot && (
+                    <span className="error-message">{errors.sponsorshipScreenshot}</span>
+                  )}
+                  {formData.sponsorshipScreenshot && (
+                    <div className="file-info">
+                      <Check size={16} className="success-icon-small" />
+                      <span>File uploaded: {formData.sponsorshipScreenshot.name}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="form-field-group">
+                  <label className="commitment-item checkbox-container">
+                    <input
+                      type="checkbox"
+                      checked={formData.sponsorshipTaskCompleted}
+                      onChange={(e) => handleInputChange('sponsorshipTaskCompleted', e.target.checked)}
+                    />
+                    <span className="commitment-text large">
+                      I confirm that I have completed the form and uploaded a valid screenshot
+                    </span>
+                  </label>
+                  {errors.sponsorshipTask && (
+                    <span className="error-message">{errors.sponsorshipTask}</span>
+                  )}
+                </div>
+
+               
+              </div>
+            </div>
+          )}
+
+          {/* SECTION 4: Goals & Commitment (was Section 3) */}
+          {currentSection === 4 && (
             <div className="section section-3" key="section-3">
               <div className="section-header">
                 <h2 className="section-title">What are you aiming for?</h2>
@@ -945,10 +1108,10 @@ const FindMyMentorForm = ({ onClose }) => {
             )}
             
             <div className="section-indicator">
-              Section {currentSection} of 3
+              Section {currentSection} of 4
             </div>
 
-            {currentSection < 3 ? (
+            {currentSection < 4 ? (
               <button className="nav-btn next" onClick={handleNext}>
                 Next
                 <ChevronRight size={20} />
@@ -1996,6 +2159,246 @@ const FindMyMentorForm = ({ onClose }) => {
           .contract-title {
             font-size: 1.5rem;
           }
+        }
+
+        /* Sponsorship Section Styles */
+        .sponsorship-info-card {
+          background: rgba(32, 178, 170, 0.05);
+          border: 2px solid rgba(32, 178, 170, 0.2);
+          border-radius: 16px;
+          padding: 1.5rem;
+          display: flex;
+          gap: 1rem;
+          align-items: flex-start;
+          margin-bottom: 2rem;
+        }
+
+        .info-icon {
+          font-size: 2rem;
+          flex-shrink: 0;
+        }
+
+        .info-content h3 {
+          color: #20B2AA;
+          font-size: 1.2rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .info-content p {
+          color: #cbd5e1;
+          font-size: 0.95rem;
+          line-height: 1.6;
+        }
+
+        .task-card {
+          background: rgba(255, 255, 255, 0.02);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 20px;
+          padding: 2rem;
+          margin-bottom: 2rem;
+        }
+
+        .task-header {
+          margin-bottom: 1.5rem;
+        }
+
+        .task-badge {
+          display: inline-block;
+          background: #d3e10a;
+          color: #000;
+          padding: 0.4rem 1rem;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+        }
+
+        .task-header h3 {
+          color: #20B2AA;
+          font-size: 1.5rem;
+          margin-bottom: 0;
+        }
+
+        .task-steps {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .step {
+          display: flex;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+
+        .step-number {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: rgba(32, 178, 170, 0.2);
+          color: #20B2AA;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 1.1rem;
+          flex-shrink: 0;
+        }
+
+        .step-content {
+          flex: 1;
+        }
+
+        .step-content h4 {
+          color: #cbd5e1;
+          font-size: 1.1rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+          color: #94a3b8;
+          font-size: 0.95rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .form-link-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          background: #20B2AA;
+          color: #000;
+          padding: 0.75rem 1.5rem;
+          border-radius: 12px;
+          text-decoration: none;
+          font-weight: 600;
+          transition: all 0.3s ease;
+          min-width: 220px;
+        }
+
+        .form-link-btn:hover {
+          background: #1a9b94;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(32, 178, 170, 0.3);
+        }
+
+        .file-upload-area {
+          margin-top: 0.5rem;
+        }
+
+        .file-upload-label {
+          display: block;
+          border: 2px dashed rgba(32, 178, 170, 0.3);
+          border-radius: 16px;
+          padding: 2rem;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          background: rgba(255, 255, 255, 0.02);
+        }
+
+        .file-upload-label:hover {
+          border-color: rgba(32, 178, 170, 0.5);
+          background: rgba(32, 178, 170, 0.05);
+        }
+
+        .upload-prompt {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
+        .upload-icon {
+          font-size: 3rem;
+        }
+
+        .upload-text {
+          color: #20B2AA;
+          font-size: 1.1rem;
+          font-weight: 600;
+        }
+
+        .upload-hint {
+          color: #94a3b8;
+          font-size: 0.9rem;
+        }
+
+        .preview-container {
+          position: relative;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+
+        .screenshot-preview {
+          width: 100%;
+          height: auto;
+          border-radius: 12px;
+          display: block;
+        }
+
+        .preview-overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.7);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .preview-container:hover .preview-overlay {
+          opacity: 1;
+        }
+
+        .preview-overlay span {
+          color: #20B2AA;
+          font-weight: 600;
+          font-size: 1.1rem;
+        }
+
+        .file-info {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-top: 0.75rem;
+          color: #22c55e;
+          font-size: 0.9rem;
+        }
+
+        .success-icon-small {
+          color: #22c55e;
+        }
+
+        .checkbox-container {
+          cursor: pointer;
+        }
+
+        .important-note {
+          display: flex;
+          gap: 1rem;
+          background: rgba(211, 225, 10, 0.05);
+          border: 1px solid rgba(211, 225, 10, 0.3);
+          border-radius: 12px;
+          padding: 1.25rem;
+          margin-top: 2rem;
+        }
+
+        .note-icon {
+          font-size: 1.5rem;
+          flex-shrink: 0;
+        }
+
+        .note-content {
+          color: #cbd5e1;
+          font-size: 0.95rem;
+          line-height: 1.6;
+        }
+
+        .note-content strong {
+          color: #d3e10a;
         }
       `}</style>
     </div>
