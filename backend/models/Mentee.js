@@ -63,19 +63,7 @@ const menteeSchema = new mongoose.Schema({
     enum: ['C++', 'Java', 'Python']
   },
 
-  interestedTopics: [{
-    type: String,
-    required: false, // ✅ FIXED: Made optional since you're removing hardcoded mapping
-    enum: [
-      'Arrays & Strings',
-      'Recursion & Backtracking',
-      'Linked Lists & Stacks',
-      'Trees & BST',
-      'Graphs',
-      'Dynamic Programming',
-      'Greedy & Sliding Window'
-    ]
-  }],
+
 
   platforms: [{
     type: String,
