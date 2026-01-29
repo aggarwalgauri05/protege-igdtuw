@@ -360,10 +360,21 @@ router.post('/register', upload.single('sponsorshipScreenshot'), async (req, res
         message: 'Mentee with this email already exists'
       });
     }
+const safeParse = (value) => {
+  if (typeof value === 'string') {
+    try {
+      return JSON.parse(value);
+    } catch {
+      return value; // already a normal string
+    }
+  }
+  return value;
+};
 
     // Parse JSON fields from FormData
-    const interestedTopics = req.body.interestedTopics ? JSON.parse(req.body.interestedTopics) : [];
-    const platforms = req.body.platforms ? JSON.parse(req.body.platforms) : [];
+   const platforms = safeParse(req.body.platforms);
+const interestedTopics = safeParse(req.body.interestedTopics);
+
 
     // Prepare mentee data
     const menteeData = {
