@@ -465,14 +465,16 @@ const interestedTopics = safeParse(req.body.interestedTopics);
 
     console.log('✅ Registration complete!');
 
-    res.status(201).json({
+     res.status(201).json({
       success: true,
       message: 'Mentee registered and mentor allocated successfully!',
       data: {
         mentee: savedMentee,
         mentor: {
           name: updatedMentor.name,
-          email: updatedMentor.personalEmail,
+          email: updatedMentor.collegeEmail,
+          contactNumber: updatedMentor.contactNumber,  // ← ADD THIS LINE
+          linkedInProfile: updatedMentor.linkedInProfile,  // ← ADD THIS LINE
           expertise: updatedMentor.domain,
           language: updatedMentor.preferredLanguage,
           platforms: updatedMentor.platforms,

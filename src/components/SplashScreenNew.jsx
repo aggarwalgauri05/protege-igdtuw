@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 const SplashScreen = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [quoteVisible, setQuoteVisible] = useState(false);
-  const animationRef = useRef(null);
   const hasCompletedRef = useRef(false);
 
   useEffect(() => {
@@ -45,7 +44,7 @@ const SplashScreen = ({ onComplete }) => {
 
   return (
     <div className="splash-screen">
-      {/* Animated Background Blob */}
+      {/* Animated Background Blobs */}
       <div className="blob-container">
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
@@ -92,40 +91,45 @@ const SplashScreen = ({ onComplete }) => {
         /* Morphing Blob Background */
         .blob-container {
           position: absolute;
+          top: 0;
+          left: 0;
           width: 100%;
           height: 100%;
-          filter: blur(80px);
-          opacity: 0.6;
+          filter: blur(100px);
+          opacity: 0.7;
+          z-index: 0;
+          pointer-events: none;
         }
 
         .blob {
           position: absolute;
           border-radius: 50%;
           animation: morph 8s ease-in-out infinite;
+          will-change: transform;
         }
 
         .blob-1 {
-          width: 500px;
-          height: 500px;
-          background: radial-gradient(circle, #20B2AA 0%, transparent 70%);
-          top: 20%;
-          left: 10%;
+          width: 600px;
+          height: 600px;
+          background: #20B2AA;
+          top: 10%;
+          left: 5%;
           animation-delay: 0s;
         }
 
         .blob-2 {
-          width: 400px;
-          height: 400px;
-          background: radial-gradient(circle, #1a9b94 0%, transparent 70%);
-          bottom: 20%;
-          right: 15%;
+          width: 500px;
+          height: 500px;
+          background: #1a9b94;
+          bottom: 10%;
+          right: 5%;
           animation-delay: -2s;
         }
 
         .blob-3 {
-          width: 350px;
-          height: 350px;
-          background: radial-gradient(circle, #15847e 0%, transparent 70%);
+          width: 450px;
+          height: 450px;
+          background: #15847e;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
@@ -158,6 +162,7 @@ const SplashScreen = ({ onComplete }) => {
           text-align: center;
           max-width: 700px;
           padding: 2rem;
+          width: 100%;
         }
 
         .quote-wrapper {
@@ -208,7 +213,8 @@ const SplashScreen = ({ onComplete }) => {
         }
 
         .progress-bar {
-          width: 500px;
+          width: 100%;
+          max-width: 500px;
           height: 6px;
           background: rgba(255, 255, 255, 0.1);
           border-radius: 10px;
@@ -233,53 +239,124 @@ const SplashScreen = ({ onComplete }) => {
           margin-top: 0.5rem;
         }
 
-        /* Responsive */
+        /* Tablet Responsive */
         @media (max-width: 768px) {
           .blob-1 {
+            width: 450px;
+            height: 450px;
+          }
+
+          .blob-2 {
+            width: 350px;
+            height: 350px;
+          }
+
+          .blob-3 {
             width: 300px;
             height: 300px;
           }
 
-          .blob-2 {
-            width: 250px;
-            height: 250px;
+          .blob-container {
+            filter: blur(90px);
+            opacity: 0.6;
           }
 
-          .blob-3 {
-            width: 200px;
-            height: 200px;
-          }
-
-          .quote-text {
-            font-size: 1.8rem;
-          }
-
-          .quote-mark {
-            font-size: 3.5rem;
-          }
-
-          .quote-author {
-            font-size: 0.95rem;
-            margin-bottom: 3rem;
-          }
-
-          .progress-bar {
-            width: 350px;
-            height: 5px;
-          }
-
-          .progress-text {
-            font-size: 1.8rem;
-          }
-        }
-
-        @media (max-width: 480px) {
           .splash-content {
             padding: 1.5rem;
           }
 
           .quote-text {
-            font-size: 1.5rem;
+            font-size: 2rem;
+          }
+
+          .quote-mark {
+            font-size: 4rem;
+          }
+
+          .quote-author {
+            font-size: 1rem;
+          }
+
+          .progress-bar {
+            max-width: 400px;
+            height: 5px;
+          }
+
+          .progress-text {
+            font-size: 2rem;
+          }
+
+          .progress-container {
+            margin-top: 3rem;
+            gap: 1.5rem;
+          }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+          .blob-1 {
+            width: 350px;
+            height: 350px;
+            top: 5%;
+            left: -10%;
+          }
+
+          .blob-2 {
+            width: 300px;
+            height: 300px;
+            bottom: 5%;
+            right: -10%;
+          }
+
+          .blob-3 {
+            width: 280px;
+            height: 280px;
+          }
+
+          .blob-container {
+            filter: blur(80px);
+            opacity: 0.65;
+          }
+
+          .splash-content {
+            padding: 1rem;
+          }
+
+          .quote-text {
+            font-size: 1.6rem;
+            margin: 0 0 1.5rem 0;
+          }
+
+          .quote-mark {
+            font-size: 3.5rem;
+            margin-bottom: 0.75rem;
+          }
+
+          .quote-author {
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+          }
+
+          .progress-container {
+            margin-top: 2.5rem;
+            gap: 1.2rem;
+          }
+
+          .progress-bar {
+            max-width: 280px;
+            height: 4px;
+          }
+
+          .progress-text {
+            font-size: 1.6rem;
+            letter-spacing: 3px;
+          }
+        }
+
+        /* Very small screens */
+        @media (max-width: 360px) {
+          .quote-text {
+            font-size: 1.4rem;
           }
 
           .quote-mark {
@@ -290,17 +367,13 @@ const SplashScreen = ({ onComplete }) => {
             font-size: 0.85rem;
           }
 
-          .blob-container {
-            filter: blur(60px);
-          }
-
           .progress-bar {
-            width: 280px;
-            height: 4px;
+            max-width: 240px;
           }
 
           .progress-text {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
           }
         }
       `}</style>

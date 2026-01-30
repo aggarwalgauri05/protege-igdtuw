@@ -325,179 +325,403 @@ const FindMyMentorForm = ({ onClose }) => {
   if (submitSuccess) {
     const allocationResult = formData.allocationResult;
     const hasMentor = allocationResult?.mentor;
+    const mentor = hasMentor ? allocationResult.mentor : null;
     
     return (
       <div className="form-overlay">
         <div className="success-container">
           <div className="success-content">
+            
+            {/* Success Checkmark */}
             <div className="success-checkmark">✓</div>
-            <h2 className="success-title">
-              {hasMentor ? 'Mentor Allocated!' : 'Application Submitted!'}
-            </h2>
+            
+            {/* Title */}
+            <h2 className="success-title">Mentor Allocated!</h2>
+            <p className="success-subtitle">
+              Great news! We've found you a perfect mentor match.
+            </p>
             
             {hasMentor ? (
-              <div className="mentor-details">
-                <p className="success-message">
-                  Great news! We've found you a perfect mentor match.
-                </p>
+              <>
+                {/* Mentor Card */}
                 <div className="mentor-card">
-                  <h3>👨🏫 Your Mentor: {allocationResult.mentor.name}</h3>
-                  <p><strong>Expertise:</strong> {allocationResult.mentor.expertise}</p>
-                  <p><strong>Language:</strong> {allocationResult.mentor.language}</p>
-                  <p><strong>Topics:</strong> {allocationResult.mentor.topics?.join(', ')}</p>
-                  {allocationResult.mentor.profileUrl && (
-                    <a href={allocationResult.mentor.profileUrl} target="_blank" rel="noopener noreferrer" className="mentor-profile-link">
-                      View Profile →
-                    </a>
+                  <h3 className="mentor-card-title">Your Mentor</h3>
+                  
+                  {/* Name */}
+                  <div className="mentor-row">
+                    <span className="label">Name</span>
+                    <span className="value">{mentor.name}</span>
+                  </div>
+                  
+                  {/* Email */}
+                  {mentor.email && (
+                    <div className="mentor-row">
+                      <span className="label">Email</span>
+                      <a href={`mailto:${mentor.email}`} className="value link">
+                        {mentor.email}
+                      </a>
+                    </div>
+                  )}
+                  
+                  {/* Phone */}
+                  {mentor.contactNumber && (
+                    <div className="mentor-row">
+                      <span className="label">Phone</span>
+                      <a href={`tel:${mentor.contactNumber}`} className="value link">
+                        {mentor.contactNumber}
+                      </a>
+                    </div>
+                  )}
+                  
+                  {/* LinkedIn */}
+                  {(mentor.linkedInProfile || mentor.profileUrl) && (
+                    <div className="mentor-row">
+                      <span className="label">LinkedIn</span>
+                      <a 
+                        href={mentor.linkedInProfile || mentor.profileUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="value linkedin-btn"
+                      >
+                        View Profile →
+                      </a>
+                    </div>
                   )}
                 </div>
-                <p className="next-steps">
-                  📧 Check your email for mentor contact details and next steps.
-                </p>
-              </div>
+
+                {/* Email Banner */}
+                <div className="email-banner">
+                  📧 Check your email for complete mentor contact details and next steps.
+                </div>
+
+                {/* Support Cards */}
+                <div className="support-section">
+                  <div className="support-card">
+                    <h4>Join Our Community</h4>
+                    <p>Connect with fellow mentees on WhatsApp</p>
+                    <a 
+                      href="https://chat.whatsapp.com/YOUR_COMMUNITY_LINK" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="whatsapp-btn"
+                    >
+                      Join WhatsApp Group →
+                    </a>
+                  </div>
+
+                  <div className="support-card">
+                    <h4>Need Help?</h4>
+                    <p>Have questions or concerns?</p>
+                    <a href="mailto:protegeigdtuw@gmail.com" className="email-link">
+                      protegeigdtuw@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                {/* Back Button */}
+                <button className="back-btn" onClick={onClose}>
+                  Back to Home
+                </button>
+              </>
             ) : (
-              <div className="waiting-list">
-                <p className="success-message">
-                  You've been added to our priority waiting list. We'll match you with a mentor as soon as one becomes available.
-                </p>
-                <p className="success-email">We'll notify you at: <span>{formData.email}</span></p>
+              <div className="waiting">
+                <p className="message">You've been added to our priority waiting list.</p>
+                <p className="email">We'll notify you at: <span>{formData.email}</span></p>
+                <button className="back-btn" onClick={onClose}>Back to Home</button>
               </div>
             )}
-            
-            <div className="success-buttons">
-              <button className="success-btn primary" onClick={onClose}>Back to Home</button>
-            </div>
           </div>
         </div>
+
         <style jsx>{`
+          * {
+            cursor: inherit !important;
+          }
+
           .success-container {
             position: fixed;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: #000;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
             z-index: 10000;
-            cursor: default;
+            overflow-y: auto;
+            padding: 5rem 1.5rem 2rem;
           }
+
           .success-content {
-            text-align: center;
-            animation: successFadeIn 0.8s ease;
+            max-width: 650px;
+            width: 100%;
+            animation: fadeIn 0.6s ease;
           }
+
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+
           .success-checkmark {
-            width: 120px;
-            height: 120px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #20B2AA, #16a89e);
+            background: linear-gradient(135deg, #20B2AA, #17a89e);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: white;
+            font-size: 3rem;
+            color: #fff;
             margin: 0 auto 2rem;
-            animation: successPulse 0.6s ease;
-            box-shadow: 0 0 40px rgba(32, 178, 170, 0.6);
+            box-shadow: 0 0 30px rgba(32, 178, 170, 0.5);
           }
+
           .success-title {
             font-size: 2.5rem;
             color: #20B2AA;
-            margin-bottom: 1rem;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
           }
-          .success-message {
-            font-size: 1.2rem;
+
+          .success-subtitle {
+            font-size: 1.1rem;
             color: #cbd5e1;
-            margin-bottom: 1rem;
-            max-width: 500px;
+            text-align: center;
+            margin-bottom: 2.5rem;
           }
-          .success-email {
+
+          .mentor-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(32, 178, 170, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+          }
+
+          .mentor-card-title {
+            font-size: 1.4rem;
+            color: #20B2AA;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(32, 178, 170, 0.2);
+          }
+
+          .mentor-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+          }
+
+          .mentor-row:last-child {
+            margin-bottom: 0;
+          }
+
+          .label {
+            font-size: 1rem;
+            color: #94a3b8;
+            font-weight: 500;
+            min-width: 100px;
+          }
+
+          .value {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 500;
+            text-align: right;
+            word-break: break-word;
+          }
+
+          .link {
+            color: #20B2AA;
+            text-decoration: none;
+          }
+
+          .link:hover {
+            text-decoration: underline;
+          }
+
+          .linkedin-btn {
+            background: rgba(32, 178, 170, 0.15);
+            color: #20B2AA;
+            padding: 0.5rem 1.25rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+          }
+
+          .linkedin-btn:hover {
+            background: rgba(32, 178, 170, 0.25);
+            transform: translateX(3px);
+          }
+
+          .email-banner {
+            background: linear-gradient(135deg, rgba(211, 225, 10, 0.12) 0%, rgba(211, 225, 10, 0.05) 100%);
+            border: 2px solid rgba(211, 225, 10, 0.4);
+            border-radius: 14px;
+            padding: 1.2rem;
+            text-align: center;
+            color: #d3e10a;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+          }
+
+          .support-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+          }
+
+          .support-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+          }
+
+          .support-card:hover {
+            border-color: rgba(32, 178, 170, 0.3);
+            transform: translateY(-2px);
+          }
+
+          .support-card h4 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+          }
+
+          .support-card p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+          }
+
+          .whatsapp-btn {
+            display: inline-block;
+            background: #25D366;
+            color: #fff;
+            padding: 0.7rem 1.4rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+          }
+
+          .whatsapp-btn:hover {
+            background: #20ba5a;
+            transform: scale(1.02);
+          }
+
+          .email-link {
+            color: #20B2AA;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+          }
+
+          .email-link:hover {
+            text-decoration: underline;
+          }
+
+          .back-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: #20B2AA;
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+          }
+
+          .back-btn:hover {
+            background: #1a9b94;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(32, 178, 170, 0.4);
+          }
+
+          .waiting {
+            text-align: center;
+          }
+
+          .message {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+          }
+
+          .email {
             color: #94a3b8;
             margin-bottom: 2rem;
           }
-          .success-email span {
+
+          .email span {
             color: #20B2AA;
             font-weight: 600;
           }
-          .mentor-details {
-            text-align: left;
-            max-width: 600px;
-            margin: 0 auto;
+
+          @media (max-width: 768px) {
+            .success-container {
+              padding: 3rem 1rem 2rem;
+            }
+
+            .success-title {
+              font-size: 2rem;
+            }
+
+            .mentor-card {
+              padding: 1.5rem;
+            }
+
+            .support-section {
+              grid-template-columns: 1fr;
+            }
+
+            .mentor-row {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 0.5rem;
+            }
+
+            .value {
+              text-align: left;
+            }
           }
-          .mentor-card {
-            background: rgba(32, 178, 170, 0.1);
-            border: 2px solid rgba(32, 178, 170, 0.3);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 1.5rem 0;
-            text-align: left;
-          }
-          .mentor-card h3 {
-            color: #20B2AA;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-          }
-          .mentor-card p {
-            color: #cbd5e1;
-            margin: 0.5rem 0;
-            font-size: 1rem;
-          }
-          .mentor-profile-link {
-            display: inline-block;
-            color: #20B2AA;
-            text-decoration: none;
-            margin-top: 1rem;
-            font-weight: 600;
-          }
-          .mentor-profile-link:hover {
-            text-decoration: underline;
-          }
-          .next-steps {
-            background: rgba(211, 225, 10, 0.1);
-            border: 1px solid rgba(211, 225, 10, 0.3);
-            border-radius: 12px;
-            padding: 1rem;
-            color: #d3e10a;
-            text-align: center;
-            margin-top: 1rem;
-          }
-          .waiting-list {
-            text-align: center;
-          }
-          .success-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-          }
-          .success-btn {
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-          }
-          .success-btn.primary {
-            background: #20B2AA;
-            color: #000;
-          }
-          .success-btn.primary:hover {
-            background: #1a9b94;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(32, 178, 170, 0.4);
-          }
-          @keyframes successFadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes successPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+          @media (max-width: 480px) {
+            .success-checkmark {
+              width: 70px;
+              height: 70px;
+              font-size: 2.5rem;
+            }
+
+            .success-title {
+              font-size: 1.75rem;
+            }
+
+            .mentor-card {
+              padding: 1.25rem;
+            }
           }
         `}</style>
       </div>
     );
   }
-
   if (isSubmitting) {
     return (
       <div className="form-overlay">
