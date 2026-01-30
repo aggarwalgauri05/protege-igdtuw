@@ -2534,6 +2534,7 @@ const FindMyMentorForm = ({ onClose }) => {
           border-radius: 20px;
           padding: 2rem;
           margin-bottom: 2rem;
+          overflow: hidden;
         }
 
         .task-header {
@@ -2567,6 +2568,7 @@ const FindMyMentorForm = ({ onClose }) => {
           display: flex;
           gap: 1rem;
           align-items: flex-start;
+          flex-direction: column;
         }
 
         .step-number {
@@ -2585,6 +2587,7 @@ const FindMyMentorForm = ({ onClose }) => {
 
         .step-content {
           flex: 1;
+          width: 100%;
         }
 
         .step-content h4 {
@@ -2603,7 +2606,6 @@ const FindMyMentorForm = ({ onClose }) => {
           display: inline-flex;
           align-items: center;
           justify-content: space-between;
-          gap: 1rem;
           background: #20B2AA;
           color: #000;
           padding: 0.75rem 1.5rem;
@@ -2612,6 +2614,13 @@ const FindMyMentorForm = ({ onClose }) => {
           font-weight: 600;
           transition: all 0.3s ease;
           min-width: 220px;
+          width: 100%;
+    max-width: 100%;
+    min-width: unset;        /* 🔥 THIS is key */
+    justify-content: center;
+    gap: 0.75rem;
+    box-sizing: border-box;
+    transform: none !important;
         }
 
         .form-link-btn:hover {
