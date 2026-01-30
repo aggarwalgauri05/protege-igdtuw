@@ -477,8 +477,7 @@ const FindMyMentorForm = ({ onClose }) => {
             position: fixed;
             width: 100%;
             height: 100%;
-            filter: blur(100px);
-            opacity: 0.2;
+            opacity: 0.1;
             pointer-events: none;
             z-index: 0;
           }
@@ -821,7 +820,7 @@ const FindMyMentorForm = ({ onClose }) => {
 
             /* Blob responsiveness */
             .success-blob-container {
-              filter: blur(80px);
+              opacity: 0.08;
             }
 
             .success-blob-1 {
@@ -889,8 +888,8 @@ const FindMyMentorForm = ({ onClose }) => {
             to { transform: rotate(360deg); }
           }
           @keyframes pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
           }
         `}</style>
       </div>
@@ -1500,15 +1499,13 @@ const FindMyMentorForm = ({ onClose }) => {
           position: fixed;
           width: 100%;
           height: 100%;
-          filter: blur(100px);
-          opacity: 0.4;
+          opacity: 0.15;
           pointer-events: none;
         }
 
         .blob {
           position: absolute;
           border-radius: 50%;
-          animation: morph 8s ease-in-out infinite;
         }
 
         .blob-1 {
@@ -1571,8 +1568,7 @@ const FindMyMentorForm = ({ onClose }) => {
           height: 4px;
           background: #20B2AA;
           border-radius: 50%;
-          opacity: 0;
-          animation: floatParticle 6s ease-in-out infinite;
+          opacity: 0.3;
         }
 
         @keyframes floatParticle {
@@ -1617,8 +1613,7 @@ const FindMyMentorForm = ({ onClose }) => {
           align-items: center;
           gap: 1rem;
           z-index: 10001;
-          background: rgba(0, 0, 0, 0.8);
-          backdrop-filter: blur(10px);
+          background: rgba(0, 0, 0, 0.9);
           padding: 1rem 2rem;
           border-radius: 50px;
           border: 1px solid rgba(32, 178, 170, 0.2);
@@ -1688,7 +1683,6 @@ const FindMyMentorForm = ({ onClose }) => {
           justify-content: center;
           transition: all 0.3s ease;
           z-index: 10001;
-          backdrop-filter: blur(10px);
         }
 
         .close-btn:hover {
@@ -1706,8 +1700,7 @@ const FindMyMentorForm = ({ onClose }) => {
         }
 
         .form-card {
-          background: rgba(10, 10, 10, 0.9);
-          backdrop-filter: blur(20px);
+          background: rgba(10, 10, 10, 0.95);
           border: 1px solid rgba(32, 178, 170, 0.2);
           border-radius: 30px;
           padding: 3rem;
@@ -2183,8 +2176,8 @@ const FindMyMentorForm = ({ onClose }) => {
         }
 
         @keyframes floatPrompt {
-          0%, 100% { opacity: 0.4; transform: translateY(0); }
-          50% { opacity: 0.7; transform: translateY(-5px); }
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 0.7; }
         }
 
         .mentor-reason-textarea {

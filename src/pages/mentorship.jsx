@@ -165,6 +165,7 @@ const handleSplashComplete = () => {
 
   // Hover scramble effect
   const handleTitleHover = () => {
+    if (window.innerWidth <= 768) return; 
     if (isHovering) return;
     
     setIsHovering(true);
@@ -1308,15 +1309,21 @@ const handleSplashComplete = () => {
           }
 
           .hero-content {
-            padding: 1rem 0;
+            padding: 5rem 0;
           }
 
-          .hero-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            letter-spacing: 0.02em;
-          }
+           .hero-title {
+    font-size: 6rem !important;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    transform: none !important;
+    filter: none !important;
+  }
 
+  .hero-title::before,
+  .hero-title::after {
+    display: none; /* remove shadow layers on mobile */
+  }
           .hero-subtitle {
             font-size: 1rem;
             margin-bottom: 1.5rem;
@@ -1333,33 +1340,58 @@ const handleSplashComplete = () => {
             gap: 1.25rem;
           }
 
-          .stat-card {
-            padding: 1.25rem;
-          }
+           .stat-card {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
 
-          .stat-card h3 {
-            font-size: 1.75rem;
-          }
+  .stat-card h3 {
+    font-size: 1.8rem;
+  }
 
-          .stat-card p {
-            font-size: 0.85rem;
-          }
+  .stat-card p {
+    font-size: 0.85rem;
+  }
 
-          .stat-icon-wrapper {
-            padding: 0.75rem;
-          }
+  .stat-icon-wrapper {
+    padding: 0.6rem;
+  }
 
-          .stat-card svg {
-            width: 28px;
-            height: 28px;
-          }
+  .stat-card svg {
+    width: 26px;
+    height: 26px;
+  }
 
-          .hww-section,
-          .story-section,
-          .contact-section,
-          .cta-section {
-            padding: 3rem 1rem;
-          }
+          @media (max-width: 768px) {
+
+  .hww-item {
+    padding: 1.5rem;
+  }
+
+  .hww-item h3 {
+    font-size: 1.4rem;
+  }
+
+  .hww-item svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .hww-content-box {
+    padding: 1.5rem;
+    min-height: unset;
+  }
+
+  .hww-content h4 {
+    font-size: 1.4rem;
+  }
+
+  .hww-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}
+
 
           .contact-card {
             padding: 2rem 1.5rem;

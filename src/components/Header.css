@@ -406,4 +406,38 @@
   .logo:active .logo-img {
     transform: scale(0.95);
   }
+  .nav a,
+  .mentorship-link {
+    text-align: center !important;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Kill flip animation on mobile */
+  .flip-text {
+    perspective: none;
+    height: auto;
+  }
+
+  .flip-front,
+  .flip-back {
+    position: static;
+    transform: none !important;
+    transition: none !important;
+    backface-visibility: visible;
+  }
+
+  .flip-back {
+    display: none; /* show only one text */
+  }
+
+  /* Prevent hover motion */
+  .mentorship-link:hover {
+    transform: none !important;
+  }
+
+  .mentorship-link::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
