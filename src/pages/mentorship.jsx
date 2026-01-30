@@ -432,9 +432,9 @@ const handleSplashComplete = () => {
                 </div>
                 <h3 className="contact-name">Disha<br/>Malhotra</h3>
               </div>
-              <a href="tel:9999999999" className="contact-phone">
+              <a href="tel:8527755244" className="contact-phone">
                 <Phone size={18} />
-                <span>9999999999</span>
+                <span>8527755244</span>
               </a>
             </div>
           </div>
@@ -533,6 +533,7 @@ const handleSplashComplete = () => {
           animation: fadeInUp 1s ease;
           transition: transform 0.2s ease-out;
           will-change: transform;
+          padding-top: 2rem;
         }
 
         .hero-stats-below {
@@ -622,6 +623,8 @@ const handleSplashComplete = () => {
           font-family: 'Courier New', monospace;
           filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.4));
           transition: all 0.3s ease;
+          line-height: 1.1;
+          padding-top: 0.2em;
         }
 
         .hero-title::before {
@@ -1206,6 +1209,7 @@ const handleSplashComplete = () => {
             font-size: 4rem;
             line-height: 1.1;
             margin-bottom: 1.5rem;
+            padding-top: 0.2em;
           }
 
           .hero-subtitle {

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const Mentee = require('../models/Mentee');
@@ -10,37 +9,9 @@ const {
   menteeEmailTemplate,
   mentorEmailTemplate
 } = require('../mails/emailTemplates');
+const { gridfsUpload, uploadToGridFS, getFromGridFS } = require('../utils/gridfsStorage');
 
-// Configure multer for file upload
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const uploadDir = 'uploads/sponsorship-screenshots';
-    // Create directory if it doesn't exist
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-    cb(null, uploadDir);
-  },
-  filename: function (req, file, cb) {
-    // Create unique filename: timestamp-originalname
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, 'screenshot-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB limit
-  },
-  fileFilter: function (req, file, cb) {
-    // Accept images only
-    if (!file.mimetype.startsWith('image/')) {
-      return cb(new Error('Only image files are allowed!'), false);
-    }
-    cb(null, true);
-  }
-});
+// ✅ UPDATED: Helper function to get numeric value for DSA levels
 
 // ✅ UPDATED: Helper function to get numeric value for DSA levels
 const getDSALevelValue = (level) => {
@@ -120,7 +91,10 @@ const allocateMentor = async (menteeData) => {
     console.log(`   Language: ${menteeData.preferredLanguage}`);
     
     // Find all available mentors
-    const availableMentors = await Mentor.find({ isActive: true });
+    const availableMentors = await Mentor.find({ 
+      isActive: true,
+      isAvailable: true
+    });
     
     console.log(`\n📊 Total active mentors: ${availableMentors.length}`);
 
@@ -346,7 +320,7 @@ const prioritizeMentors = (mentors, menteeData) => {
 };
 
 // POST - Register mentee and allocate mentor (with file upload)
-router.post('/register', upload.single('sponsorshipScreenshot'), async (req, res) => {
+router.post('/register', gridfsUpload.single('sponsorshipScreenshot'), async (req, res) => {
   try {
     console.log('📥 Received registration request');
     console.log('Body:', req.body);
@@ -382,6 +356,10 @@ const safeParse = (value) => {
 const interestedTopics = safeParse(req.body.interestedTopics);
 
 
+    // Upload screenshot to GridFS
+    const uniqueFilename = `screenshot-${Date.now()}-${Math.round(Math.random() * 1E9)}${path.extname(req.file.originalname)}`;
+    const screenshotId = await uploadToGridFS(req.file, uniqueFilename);
+
     // Prepare mentee data
     const menteeData = {
       fullName: req.body.fullName,
@@ -398,7 +376,7 @@ const interestedTopics = safeParse(req.body.interestedTopics);
       platforms: platforms,
       goals: req.body.goals || '',
       sponsorshipTaskCompleted: req.body.sponsorshipTaskCompleted === 'true',
-      sponsorshipScreenshot: req.file.path
+      sponsorshipScreenshot: screenshotId // Store GridFS file ID
     };
 
     console.log('📝 Prepared mentee data:', menteeData);
@@ -410,6 +388,37 @@ const interestedTopics = safeParse(req.body.interestedTopics);
     const allocatedMentor = await allocateMentor(menteeData);
     
     if (!allocatedMentor) {
+      // Send admin notification email
+      const adminEmails = ['malhotradisha2710@gmail.com', 'aggarwalgauri05@gmail.com'];
+      
+      adminEmails.forEach(adminEmail => {
+        sendEmail({
+          to: adminEmail,
+          subject: '🚨 URGENT: All Mentors at Capacity - XSEED',
+          html: `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+              <h2 style="color: #dc2626;">🚨 All Mentors at Capacity</h2>
+              <p>A new mentee registration failed because all mentors are at full capacity.</p>
+              
+              <h3>Mentee Details:</h3>
+              <ul>
+                <li><strong>Name:</strong> ${menteeData.fullName}</li>
+                <li><strong>Email:</strong> ${menteeData.email}</li>
+                <li><strong>Year:</strong> ${menteeData.year}</li>
+                <li><strong>DSA Level:</strong> ${menteeData.dsaLevel}</li>
+                <li><strong>Language:</strong> ${menteeData.preferredLanguage}</li>
+              </ul>
+              
+              <p style="background: #fef2f2; border: 1px solid #fecaca; padding: 1rem; border-radius: 8px;">
+                <strong>Action Required:</strong> Please add more mentors or increase capacity of existing mentors.
+              </p>
+              
+              <p>Best regards,<br/>XSEED System</p>
+            </div>
+          `
+        }).catch(err => console.error('Failed to send admin notification:', err));
+      });
+      
       return res.status(500).json({
         success: false,
         message: 'No mentors available in the system. Please contact admin.'
@@ -528,6 +537,28 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error fetching mentee',
+      error: error.message
+    });
+  }
+});
+
+// GET screenshot from GridFS
+router.get('/screenshot/:fileId', async (req, res) => {
+  try {
+    const downloadStream = getFromGridFS(req.params.fileId);
+    
+    downloadStream.on('error', (error) => {
+      return res.status(404).json({
+        success: false,
+        message: 'Screenshot not found'
+      });
+    });
+    
+    downloadStream.pipe(res);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error retrieving screenshot',
       error: error.message
     });
   }

@@ -31,7 +31,7 @@ const menteeEmailTemplate = (mentee, mentor) => `
       peers, and receive important updates.
     </p>
     <p>
-      👉 <a href="https://chat.whatsapp.com/DUMMY_XSEED_LINK" target="_blank">
+      👉 <a href="https://chat.whatsapp.com/BqyFMVuxWnhA3bH9f6YrLl" target="_blank">
         Join WhatsApp Community
       </a>
     </p>

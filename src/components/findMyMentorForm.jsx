@@ -419,7 +419,7 @@ const FindMyMentorForm = ({ onClose }) => {
                     <h4>Join Our Community</h4>
                     <p>Connect with fellow mentees on WhatsApp</p>
                     <a 
-                      href="https://chat.whatsapp.com/YOUR_COMMUNITY_LINK" 
+                      href="https://chat.whatsapp.com/BqyFMVuxWnhA3bH9f6YrLl" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="whatsapp-btn"
@@ -1205,7 +1205,7 @@ const FindMyMentorForm = ({ onClose }) => {
                         <h4>Fill out the form</h4>
                         <p>Click the button below to open the Google Form in a new tab</p>
                         <a 
-                          href="https://forms.google.com/your-dummy-form-link" 
+                          href="https://forms.gle/VjPn7MiJ2z7NmXzx7" 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="form-link-btn"
