@@ -1421,7 +1421,7 @@ const FindMyMentorForm = ({ onClose }) => {
                     <div className="contract-divider"></div>
 
                     <p className="contract-duration">
-                      This is a <strong>6-week commitment</strong> starting from match date.
+                      This is a <strong>6-week commitment</strong>.
                     </p>
 
                     <div className="final-commitment-wrapper">
