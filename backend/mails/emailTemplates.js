@@ -15,7 +15,7 @@ const menteeEmailTemplate = (mentee, mentor) => `
     <h3>👨‍🏫 Your Mentor Details</h3>
     <ul>
       <li><b>Name:</b> ${mentor.name}</li>
-      <li><b>Email:</b> ${mentor.personalEmail}</li>
+      <li><b>Email:</b> ${mentor.collegeEmail}</li>
       <li><b>Phone:</b> ${mentor.contactNumber}</li>
       <li>
         <b>LinkedIn:</b>

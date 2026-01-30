@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import './Home.css';
 import ProtegeSection from '../components/ProtegeSection';
@@ -14,6 +14,8 @@ import mentorsIcon from '../assets/mentors_3d.png';
 import teamVideo from '../assets/team_video.mp4';
 
 const Home = () => {
+  const [showPopup, setShowPopup] = useState(true);
+
   // Scroll animations
   useEffect(() => {
     const observerOptions = {
@@ -34,6 +36,15 @@ const Home = () => {
     animatedElements.forEach(el => observer.observe(el));
 
     return () => observer.disconnect();
+  }, []);
+
+  // Popup auto-hide after 7 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPopup(false);
+    }, 7000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Smooth & slow count-up animation triggered when stats section is visible
@@ -86,6 +97,26 @@ const Home = () => {
 
   return (
     <div className="page-transition">
+      
+      {/* Popup Notification */}
+      {showPopup && (
+        <div className="popup-notification">
+          <Link to="/mentorship" className="popup-content">
+            <button 
+              className="popup-close" 
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowPopup(false);
+              }}
+              aria-label="Close notification"
+            >
+              ×
+            </button>
+            <p className="popup-text">🎉 XSeed is now live!</p>
+          </Link>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="hero-section fade-in">
@@ -110,7 +141,7 @@ const Home = () => {
           </p>
 
           <div className="hero-buttons slide-up fade-in-delay-2">
-            <Link to="/coming-soon" className="btn btn-primary">Join Us</Link>
+            <Link to="/mentorship" className="btn btn-primary">Join Us</Link>
             <button className="btn btn-secondary"
             onClick={() => {
               document.getElementById('about').scrollIntoView({ behavior: 'smooth', block:"start" });

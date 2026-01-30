@@ -1191,19 +1191,52 @@ const handleSplashComplete = () => {
         }
 
         @media (max-width: 768px) {
+          .hero-section {
+            min-height: 100vh;
+            height: auto;
+            padding: 2rem 1rem;
+          }
+
+          .hero-content {
+            padding: 2rem 0;
+          }
+
           .hero-title {
             font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+          }
+
+          .hero-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+          }
+
+          .btn--mentor {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
           }
 
           .hero-stats-below {
             flex-direction: column;
             gap: 1.5rem;
             align-items: center;
+            margin-top: 2.5rem;
           }
 
           .stat-card {
             width: 100%;
             max-width: 300px;
+            padding: 1.5rem;
+          }
+
+          .stat-card h3 {
+            font-size: 2rem;
+          }
+
+          .stat-card svg {
+            width: 32px;
+            height: 32px;
           }
 
           .hww-container {
@@ -1270,16 +1303,55 @@ const handleSplashComplete = () => {
 
         @media (max-width: 480px) {
           .hero-section {
-            padding: 1rem;
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+          }
+
+          .hero-content {
+            padding: 1rem 0;
           }
 
           .hero-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+          }
+
+          .hero-subtitle {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 0 1rem;
           }
 
           .btn--mentor {
-            padding: 14px 36px;
-            font-size: 0.9rem;
+            padding: 0.9rem 2rem;
+            font-size: 0.95rem;
+          }
+
+          .hero-stats-below {
+            margin-top: 2rem;
+            gap: 1.25rem;
+          }
+
+          .stat-card {
+            padding: 1.25rem;
+          }
+
+          .stat-card h3 {
+            font-size: 1.75rem;
+          }
+
+          .stat-card p {
+            font-size: 0.85rem;
+          }
+
+          .stat-icon-wrapper {
+            padding: 0.75rem;
+          }
+
+          .stat-card svg {
+            width: 28px;
+            height: 28px;
           }
 
           .hww-section,

@@ -173,13 +173,25 @@ const FindMyMentorForm = ({ onClose }) => {
   const handleNext = () => {
     if (validateSection(currentSection)) {
       setCurrentSection(prev => prev + 1);
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      // Scroll the form overlay to top
+      setTimeout(() => {
+        const formOverlay = document.querySelector('.form-overlay');
+        if (formOverlay) {
+          formOverlay.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
 
   const handleBack = () => {
     setCurrentSection(prev => prev - 1);
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Scroll the form overlay to top
+    setTimeout(() => {
+      const formOverlay = document.querySelector('.form-overlay');
+      if (formOverlay) {
+        formOverlay.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   const handleSubmit = async () => {
@@ -330,6 +342,13 @@ const FindMyMentorForm = ({ onClose }) => {
     return (
       <div className="form-overlay">
         <div className="success-container">
+          {/* Background Blobs */}
+          <div className="success-blob-container">
+            <div className="success-blob success-blob-1"></div>
+            <div className="success-blob success-blob-2"></div>
+            <div className="success-blob success-blob-3"></div>
+          </div>
+          
           <div className="success-content">
             
             {/* Success Checkmark */}
@@ -453,10 +472,76 @@ const FindMyMentorForm = ({ onClose }) => {
             padding: 5rem 1.5rem 2rem;
           }
 
+          /* Background Blobs for Success Section */
+          .success-blob-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            filter: blur(100px);
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+          }
+
+          .success-blob {
+            position: absolute;
+            border-radius: 50%;
+            animation: successMorph 8s ease-in-out infinite;
+          }
+
+          .success-blob-1 {
+            width: 500px;
+            height: 500px;
+            background: #20B2AA;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+          }
+
+          .success-blob-2 {
+            width: 400px;
+            height: 400px;
+            background: #1a9b94;
+            bottom: 20%;
+            right: 15%;
+            animation-delay: -2s;
+          }
+
+          .success-blob-3 {
+            width: 350px;
+            height: 350px;
+            background: #15847e;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -4s;
+          }
+
+          @keyframes successMorph {
+            0%, 100% {
+              transform: scale(1) translate(0, 0);
+              border-radius: 50% 50% 50% 50%;
+            }
+            25% {
+              transform: scale(1.1) translate(20px, -20px);
+              border-radius: 60% 40% 50% 50%;
+            }
+            50% {
+              transform: scale(0.9) translate(-20px, 20px);
+              border-radius: 50% 60% 40% 50%;
+            }
+            75% {
+              transform: scale(1.05) translate(10px, 10px);
+              border-radius: 50% 50% 60% 40%;
+            }
+          }
+
           .success-content {
             max-width: 650px;
             width: 100%;
             animation: fadeIn 0.6s ease;
+            position: relative;
+            z-index: 1;
           }
 
           @keyframes fadeIn {
@@ -701,6 +786,22 @@ const FindMyMentorForm = ({ onClose }) => {
             .value {
               text-align: left;
             }
+
+            /* Blob responsiveness */
+            .success-blob-1 {
+              width: 350px;
+              height: 350px;
+            }
+
+            .success-blob-2 {
+              width: 280px;
+              height: 280px;
+            }
+
+            .success-blob-3 {
+              width: 240px;
+              height: 240px;
+            }
           }
 
           @media (max-width: 480px) {
@@ -716,6 +817,26 @@ const FindMyMentorForm = ({ onClose }) => {
 
             .mentor-card {
               padding: 1.25rem;
+            }
+
+            /* Blob responsiveness */
+            .success-blob-container {
+              filter: blur(80px);
+            }
+
+            .success-blob-1 {
+              width: 250px;
+              height: 250px;
+            }
+
+            .success-blob-2 {
+              width: 200px;
+              height: 200px;
+            }
+
+            .success-blob-3 {
+              width: 180px;
+              height: 180px;
             }
           }
         `}</style>
@@ -1495,7 +1616,7 @@ const FindMyMentorForm = ({ onClose }) => {
           display: flex;
           align-items: center;
           gap: 1rem;
-          z-index: 10000;
+          z-index: 10001;
           background: rgba(0, 0, 0, 0.8);
           backdrop-filter: blur(10px);
           padding: 1rem 2rem;
