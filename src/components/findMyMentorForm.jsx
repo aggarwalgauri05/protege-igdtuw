@@ -69,7 +69,8 @@ const FindMyMentorForm = ({ onClose }) => {
     { icon: '⚡', label: 'Electronics and Communication with AI', value: 'ECE-AI' },
     { icon: '🧠', label: 'AI & ML', value: 'AI-ML' },
     { icon: '⚙️', label: 'Mechanical and Automation Engineering', value: 'MAE' },
-    { icon: '👾', label: 'Mathematics and Computing', value: 'MC' }
+    { icon: '👾', label: 'Mathematics and Computing', value: 'MC' },
+    { icon: '👾', label: 'Information Technology', value: 'IT' }
   ];
 
   const years = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
