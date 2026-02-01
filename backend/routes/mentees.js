@@ -11,9 +11,6 @@ const {
 } = require('../mails/emailTemplates');
 const { gridfsUpload, uploadToGridFS, getFromGridFS } = require('../utils/gridfsStorage');
 
-// ✅ UPDATED: Helper function to get numeric value for DSA levels
-
-// ✅ UPDATED: Helper function to get numeric value for DSA levels
 const getDSALevelValue = (level) => {
   const levels = {
     // Mentee levels (3 levels)
@@ -115,6 +112,9 @@ const allocateMentor = async (menteeData) => {
       // Has available slots
       const hasSlots = mentor.currentMentees < maxMentees;
       
+      // ✅ STRICT: Language match required
+      const languageMatch = mentor.preferredLanguage === menteeData.preferredLanguage;
+      
       // Common platform check
       const commonPlatforms = mentor.platforms.some(platform => {
         return menteeData.platforms.some(menteePlatform => {
@@ -122,10 +122,10 @@ const allocateMentor = async (menteeData) => {
         });
       });
       
-      const match = yearMatch && levelMatch && hasSlots && commonPlatforms;
+      const match = yearMatch && levelMatch && hasSlots && languageMatch && commonPlatforms;
       
       if (match) {
-        console.log(`   ✓ ${mentor.name} (Year: ${mentor.year}, Level: ${mentorLevel}, Slots: ${mentor.currentMentees}/${maxMentees})`);
+        console.log(`   ✓ ${mentor.name} (Year: ${mentor.year}, Level: ${mentorLevel}, Lang: ${mentor.preferredLanguage}, Slots: ${mentor.currentMentees}/${maxMentees})`);
       }
       
       return match;
@@ -150,16 +150,19 @@ const allocateMentor = async (menteeData) => {
       const levelMatch = mentorLevel >= menteeLevel;
       const hasSlots = mentor.currentMentees < maxMentees;
       
+      // ✅ STRICT: Language match required
+      const languageMatch = mentor.preferredLanguage === menteeData.preferredLanguage;
+      
       const commonPlatforms = mentor.platforms.some(platform => {
         return menteeData.platforms.some(menteePlatform => {
           return platform.toLowerCase() === menteePlatform.toLowerCase();
         });
       });
       
-      const match = yearMatch && levelMatch && hasSlots && commonPlatforms;
+      const match = yearMatch && levelMatch && hasSlots && languageMatch && commonPlatforms;
       
       if (match) {
-        console.log(`   ✓ ${mentor.name} (Year: ${mentor.year}, Level: ${mentorLevel}, Slots: ${mentor.currentMentees}/${maxMentees})`);
+        console.log(`   ✓ ${mentor.name} (Year: ${mentor.year}, Level: ${mentorLevel}, Lang: ${mentor.preferredLanguage}, Slots: ${mentor.currentMentees}/${maxMentees})`);
       }
       
       return match;
@@ -182,10 +185,13 @@ const allocateMentor = async (menteeData) => {
       const levelMatch = mentorLevel >= menteeLevel;
       const hasSlots = mentor.currentMentees < maxMentees;
       
-      const match = yearMatch && levelMatch && hasSlots;
+      // ✅ STRICT: Language match required
+      const languageMatch = mentor.preferredLanguage === menteeData.preferredLanguage;
+      
+      const match = yearMatch && levelMatch && hasSlots && languageMatch;
       
       if (match) {
-        console.log(`   ✓ ${mentor.name} (Year: ${mentor.year}, Level: ${mentorLevel}, Slots: ${mentor.currentMentees}/${maxMentees})`);
+        console.log(`   ✓ ${mentor.name} (Year: ${mentor.year}, Level: ${mentorLevel}, Lang: ${mentor.preferredLanguage}, Slots: ${mentor.currentMentees}/${maxMentees})`);
       }
       
       return match;
