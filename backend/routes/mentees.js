@@ -104,7 +104,7 @@ const allocateMentor = async (menteeData) => {
       const maxMentees = getMaxMenteesNumber(mentor.maxMentees);
       
       // ✅ NEW: Prefer mentors from HIGHER years (3rd/4th year for 2nd year mentee)
-      const yearMatch = mentorYearValue > menteeYearValue;
+      const yearMatch = mentorYearValue === menteeYearValue + 1;
       
       // ✅ UPDATED: Mentor level should be >= mentee level
       const levelMatch = mentorLevel >= menteeLevel;
@@ -291,11 +291,13 @@ const prioritizeMentors = (mentors, menteeData) => {
   return mentors.sort((a, b) => {
     // 1. ✅ Prefer HIGHER year mentors (3rd/4th year over 2nd year)
     const aYearValue = getYearValue(a.year);
-    const bYearValue = getYearValue(b.year);
-    
-    if (aYearValue !== bYearValue) {
-      return bYearValue - aYearValue; // Higher year first
-    }
+const bYearValue = getYearValue(b.year);
+
+if (aYearValue !== bYearValue) {
+  const aYearDiff = Math.abs(aYearValue - (menteeYearValue + 1));
+  const bYearDiff = Math.abs(bYearValue - (menteeYearValue + 1));
+  return aYearDiff - bYearDiff; // Closest to next year first
+}
     
     // 2. Lower mentee count (better distribution)
     if (a.currentMentees !== b.currentMentees) {
