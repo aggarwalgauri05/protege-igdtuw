@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Users, Clock, Target, Quote, Linkedin, Sparkles, Phone, Mail } from 'lucide-react';
-import SplashScreen from "../components/SplashScreenNew";
-import FindMyMentorForm from "../components/findMyMentorForm";
 import Header from '../components/Header';
+import ProgramClosed from "../components/ProgramClosed";
 
 const MentorshipLanding = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -18,16 +17,8 @@ const MentorshipLanding = () => {
     cta: false,
     contact: false
   });
-const [showSplash, setShowSplash] = useState(false);
-const [showForm, setShowForm] = useState(false);
-const handleFindMyMentor = () => {
-  setShowSplash(true);
-};
-
-const handleSplashComplete = () => {
-  setShowSplash(false);
-  setShowForm(true);
-};
+const [showClosed, setShowClosed] = useState(false);
+const handleFindMyMentor = () => setShowClosed(true);
 
   // Updated testimonials - relevant to college mentorship program
   const testimonials = [
@@ -445,13 +436,9 @@ const handleSplashComplete = () => {
         </div>
       </section>
 
-{showSplash && (
-      <SplashScreen onComplete={handleSplashComplete} />
-    )}
-
-    {showForm && (
-      <FindMyMentorForm onClose={() => setShowForm(false)} />
-    )}
+{showClosed && (
+  <ProgramClosed onClose={() => setShowClosed(false)} />
+)}
 
       <style>{`
         * {

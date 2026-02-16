@@ -315,13 +315,11 @@
 /* Mentorship Link with Flip Animation */
 .mentorship-link {
   position: relative;
-  color: var(--protege-teal) !important;
-  text-shadow: 0 0 10px rgba(32, 178, 170, 0.5),
-               0 0 20px rgba(32, 178, 170, 0.3);
-  font-weight: 600 !important;
+  color: var(--text-white) !important;
+  text-shadow: none;
+  font-weight: 500 !important;
   transition: all 0.3s ease;
 }
-
 .mentorship-link::before {
   content: '';
   position: absolute;
@@ -337,9 +335,7 @@
 .mentorship-link:hover {
   transform: translateY(-2px);
   color: var(--protege-teal) !important;
-  text-shadow: 0 0 15px rgba(32, 178, 170, 0.8),
-               0 0 30px rgba(32, 178, 170, 0.5),
-               0 0 45px rgba(32, 178, 170, 0.3);
+  text-shadow: none;
 }
 
 .mentorship-link:hover::before {
