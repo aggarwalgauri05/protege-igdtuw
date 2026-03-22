@@ -44,6 +44,16 @@ const Header = () => {
             <span className="flip-back">XSEED</span>
           </span>
         </Link>
+        {/* ── PROTEX tab ── */}
+        <a
+          href="https://protex-hackathon.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="protex-link"
+          onClick={closeMenu}
+        >
+          PROTEX ↗
+        </a>
       </nav>
     </header>
   );

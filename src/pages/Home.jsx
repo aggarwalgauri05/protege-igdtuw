@@ -4,7 +4,6 @@ import './Home.css';
 import ProtegeSection from '../components/ProtegeSection';
 import AboutProtege from "../components/AboutProtege.jsx";
 
-
 import { Link } from "react-router-dom";
 
 import heartIcon from '../assets/3dicons-notify-heart-front-color.png';
@@ -14,6 +13,9 @@ import mentorsIcon from '../assets/mentors_3d.png';
 import teamVideo from '../assets/team_video.mp4';
 
 const Home = () => {
+
+  // ── PROTEX popup ──
+  const [showPopup, setShowPopup] = useState(true);
 
   // Scroll animations
   useEffect(() => {
@@ -30,7 +32,6 @@ const Home = () => {
       });
     }, observerOptions);
 
-    // Observe all elements with animation classes
     const animatedElements = document.querySelectorAll('.fade-in, .slide-up, .scale-in');
     animatedElements.forEach(el => observer.observe(el));
 
@@ -69,7 +70,7 @@ const Home = () => {
         if (entry.isIntersecting) {
           const counters = entry.target.querySelectorAll('.number');
           counters.forEach(counter => {
-            if (counter.innerText === '0') { // Only animate if not already animated
+            if (counter.innerText === '0') {
               animateCounter(counter);
             }
           });
@@ -87,8 +88,27 @@ const Home = () => {
 
   return (
     <div className="page-transition">
-      
-      
+
+      {/* ── PROTEX POPUP ── */}
+      {showPopup && (
+        <div className="popup-notification">
+          <a
+            href="https://protex-hackathon.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="popup-content"
+          >
+            <p className="popup-text">🎮 PROTEX is live! Register by 1st April →</p>
+            <button
+              className="popup-close"
+              onClick={(e) => { e.preventDefault(); setShowPopup(false); }}
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </a>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="hero-section fade-in">
