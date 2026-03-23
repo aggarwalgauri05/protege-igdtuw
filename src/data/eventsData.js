@@ -1,3 +1,4 @@
+
 import springcode25 from "../assets/events/springcode-25.jpeg";
 import codewar25 from "../assets/events/codewar-25.jpeg";
 import penIt25 from "../assets/events/pen-it-25.jpeg";
@@ -12,9 +13,95 @@ import devsprint24 from "../assets/events/devsprint-24.jpeg";
 import orientation24 from "../assets/events/orientation-24.jpeg";
 import resumeRevamp24 from "../assets/events/resume-revamp-24.jpeg";
 import felicitation24 from "../assets/events/felicitation-24.jpeg";
+
+import xseed26 from "../assets/events/xseed-26.jpeg";
+import agenticAiWorkshop26 from "../assets/events/agentic-ai-workshop-26.jpeg";
+import mmgeis26 from "../assets/events/mmgeis-26.jpeg";
+import technoClash26 from "../assets/events/technoclash-26.jpeg";
+import protex from "../assets/events/protex-26.jpeg";
+import careerreadiness from "../assets/events/career-readiness-26.jpeg";
 import { ins } from "framer-motion/client";
 
 export const eventsData = [
+
+
+  /* ================= 2026 EVENTS ================= */
+
+{
+  id: "xseed-26",
+  year: 2026,
+  type: "MENTORSHIP",
+  title: "XSEED 2026",
+  date: "2026",
+  description:
+    "One-on-one mentorship program designed to cut through the noise and map every student to the right mentor for real career guidance and support.",
+  image: xseed26,
+  featured: true,
+  instagram: "https://www.instagram.com/p/DUEY0lLE-kD/?igsh=NWEwY2JneHo0OTF4"
+
+},
+
+{
+  id: "agentic-ai-workshop-26",
+  year: 2026,
+  type: "WORKSHOP",
+  title: "Agentic AI Workshop 2026",
+  date: "February 2026",
+  description:
+    "A hands-on workshop where participants build and experiment with autonomous AI agents, guided by industry experts from Wells Fargo and ZyndAI.",
+  image: agenticAiWorkshop26,
+  instagram: "https://www.instagram.com/reel/DUqvbTNkgER/?igsh=MXR3ZnZvaXV2YTRvdA=="
+},
+
+{
+  id: "careerreadiness",
+  year: 2026,
+  type: "CAREER",
+  title: "Resume Revamp 2026",
+  date: "February 2026",
+  description:
+    "A virtual career readiness session helping students revamp how they present themselves — continuing the journey toward impactful, interview-ready resumes.",
+  image: careerreadiness,
+  instagram: "https://www.instagram.com/p/DVJYCtVktkl/?igsh=dXRxampna2ozNXJz"
+},
+
+{
+  id: "mmgeis-26",
+  year: 2026,
+  type: "TALK",
+  title: "MMGEIS Expert Talk 2026",
+  date: "February 2026",
+  description:
+    "An expert talk exploring geo-tech, MMGEIS, and how mapping and innovation can shape your tech journey and career.",
+  image: mmgeis26,
+  instagram: "https://www.instagram.com/p/DVL0hh-kgP2/?igsh=bzI4a2J4anBkZHBs"
+},
+
+{
+  id: "technoclash-26",
+  year: 2026,
+  type: "COMPETITION",
+  title: "Techno Clash 2026",
+  date: "March 2026",
+  description:
+    "A high-pressure tech speaking competition where participants defend their views on AI, Cybersecurity, Blockchain, and Quantum Tech — no slides, no prep, just raw knowledge.",
+  image: technoClash26,
+  featured: true,
+  instagram: "https://www.instagram.com/p/DVwVLmhE_Or/?igsh=MXNxcXVsc2UwMHE5Zw=="
+},
+
+{
+  id: "protex-26",
+  year: 2026,
+  type: "HACKATHON",
+  title: "PROTEX 2026",
+  date: "April 2026",
+  description:
+    "Protégé's flagship hackathon — a fast-paced arcade-style challenge where you survive the bugs, beat the deadlines, and build to win.",
+  image: protex,
+  instagram: "https://www.instagram.com/reel/DWCSOBzkjbE/?igsh=MTZhcmJodjFvZzFzcA=="
+},
+
   /* ================= 2025 EVENTS ================= */
 
   {

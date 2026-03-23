@@ -37,7 +37,7 @@ const years = [2026, 2025, 2024];
 /* ---------------- COMPONENT ---------------- */
 
 export default function Events() {
-  const [activeYear, setActiveYear] = useState(2025);
+  const [activeYear, setActiveYear] = useState(2026);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   const filteredEvents = eventsData.filter(
@@ -84,9 +84,15 @@ export default function Events() {
 
         {/* EVENTS */}
         <div className="events-main">
-          <motion.p className="section-label" variants={fadeUp}>
+          {/* <motion.p className="section-label" variants={fadeUp}>
             PAST EVENTS
-          </motion.p>
+          </motion.p> */}
+
+{activeYear < 2026 && (
+  <motion.p className="section-label" variants={fadeUp}>
+    PAST EVENTS
+  </motion.p>
+)}
 
           <motion.h2 variants={fadeUp}>
             Highlights of <span>{activeYear}</span>
